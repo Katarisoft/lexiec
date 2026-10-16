@@ -13,13 +13,5 @@
       "Bash(git push *)",
       "Bash(git tag *)"
     ]
-  },
-  "hooks": {
-"PostToolUse": [
-{
-"matcher": "Edit|Write",
-"hooks": [{ "type": "command", "command": "dart format lib test" }]
-}
-]
-}
+  }
 }

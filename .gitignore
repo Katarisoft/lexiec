@@ -46,3 +46,22 @@ app.*.map.json
 .env
 .claude/settings.local.json
 CLAUDE.local.md
+# Variables de entorno y secretos (se conserva solo .env.example)
+.env.*
+!.env.example
+*.pem
+key.properties
+*.keystore
+*.jks
+
+# Python / Django
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.sqlite3
+staticfiles/
+media/
+.pytest_cache/
+.coverage
+htmlcov/

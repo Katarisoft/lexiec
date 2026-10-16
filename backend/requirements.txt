@@ -1,0 +1,10 @@
+# Dependencias del backend de LexiEC (versiones fijadas en E01).
+# Django 5.2 es la versión LTS vigente.
+Django==5.2.18
+psycopg[binary]==3.3.6
+
+# Dependencias transitivas resueltas
+asgiref==3.12.1
+psycopg-binary==3.3.6
+sqlparse==0.6.0
+typing_extensions==4.16.0
