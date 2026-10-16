@@ -18,6 +18,9 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - App `library` con `LegalArea`, `SourceDocument`, `SourceFragment` y `TopicCard`, migración inicial y administración en Django Admin.
 - Estados independientes de revisión humana, publicación y vigencia, con restricciones en base de datos y consultas `published()` y `eligible_for_assistant()`.
 
+- Inventario auditable de 8 documentos oficiales candidatos en `docs/FUENTES.md` (URL, edición declarada, fecha de consulta, SHA-256, limitaciones y bloqueos) y prueba acotada de la API de GOB.EC.
+- Plantilla de revisión para Revisor Jurídico en `docs/REVISION_JURIDICA.md`, sin aprobaciones registradas.
+
 ### Cambiado
 
 - El backend carga `backend/.env` con `python-dotenv` 1.2.4, sin sobrescribir variables del entorno.
