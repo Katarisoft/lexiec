@@ -2,6 +2,7 @@
 # Django 5.2 es la versión LTS vigente.
 Django==5.2.18
 psycopg[binary]==3.3.6
+python-dotenv==1.2.4
 
 # Dependencias transitivas resueltas
 asgiref==3.12.1

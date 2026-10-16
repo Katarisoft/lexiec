@@ -17,6 +17,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 ### Cambiado
 
+- El backend carga `backend/.env` con `python-dotenv` 1.2.4, sin sobrescribir variables del entorno.
 - Sustituido el contador de la plantilla de Flutter por la pantalla provisional de LexiEC.
 
 ### Eliminado

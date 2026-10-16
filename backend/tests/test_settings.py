@@ -3,6 +3,7 @@
 import os
 import subprocess
 import sys
+import tempfile
 from unittest import mock
 
 from django.conf import settings
@@ -42,15 +43,22 @@ class EnvHelpersTests(SimpleTestCase):
             self.assertEqual(env_list('LEXIEC_HOSTS'), ['a.ec', 'b.ec'])
 
 
-class SecretKeyStartupTests(SimpleTestCase):
-    """Comprueba el arranque de settings en un proceso aislado."""
+class SettingsSubprocessMixin:
+    """Importa settings en un proceso aislado.
 
-    def _import_settings(self, **overrides):
+    Por defecto apunta DJANGO_ENV_FILE a un archivo inexistente para que el
+    .env local del desarrollador no influya en el resultado.
+    """
+
+    def _import_settings(self, env_file=None, **overrides):
         env = {
             key: value
             for key, value in os.environ.items()
             if key not in ('DJANGO_SECRET_KEY', 'DJANGO_DEBUG')
         }
+        env['DJANGO_ENV_FILE'] = env_file or os.path.join(
+            tempfile.gettempdir(), 'lexiec-env-inexistente'
+        )
         env.update(overrides)
         return subprocess.run(
             [sys.executable, '-c', 'import config.settings'],
@@ -61,6 +69,8 @@ class SecretKeyStartupTests(SimpleTestCase):
             timeout=60,
         )
 
+
+class SecretKeyStartupTests(SettingsSubprocessMixin, SimpleTestCase):
     def test_fails_without_secret_key_when_debug_is_off(self):
         result = self._import_settings(DJANGO_DEBUG='0')
         self.assertNotEqual(result.returncode, 0)
@@ -71,3 +81,28 @@ class SecretKeyStartupTests(SimpleTestCase):
             DJANGO_DEBUG='0', DJANGO_SECRET_KEY='clave-solo-para-esta-prueba'
         )
         self.assertEqual(result.returncode, 0, result.stderr)
+
+
+class EnvFileLoadingTests(SettingsSubprocessMixin, SimpleTestCase):
+    """Comprueba la carga del archivo de variables con python-dotenv."""
+
+    def _write_env_file(self, content):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        path = os.path.join(directory.name, '.env')
+        with open(path, 'w', encoding='utf-8') as env_file:
+            env_file.write(content)
+        return path
+
+    def test_loads_values_from_env_file(self):
+        path = self._write_env_file(
+            'DJANGO_DEBUG=0\nDJANGO_SECRET_KEY=clave-solo-para-esta-prueba\n'
+        )
+        result = self._import_settings(env_file=path)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_process_variables_take_precedence_over_env_file(self):
+        path = self._write_env_file('DJANGO_DEBUG=1\n')
+        result = self._import_settings(env_file=path, DJANGO_DEBUG='0')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('ImproperlyConfigured', result.stderr)
