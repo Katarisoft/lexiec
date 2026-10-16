@@ -10,6 +10,18 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Proyecto Django 5.2 LTS base en `backend/`, configurado por variables de entorno y con PostgreSQL.
 - `backend/requirements.txt` con versiones fijadas y `backend/.env.example` sin valores secretos.
 - Registro de versiones, decisiones y comandos de arranque en `docs/ESTADO.md`.
+- Resumen de alcance, exclusiones y política de fuentes en `docs/ALCANCE.md`.
+- Workflows de CI separados para la app (`ci-mobile.yml`) y el backend (`ci-backend.yml`, con PostgreSQL 16 efímero).
+- Pruebas del backend sobre la conexión a PostgreSQL, las variables de entorno y el arranque sin `SECRET_KEY`.
+- Pantalla provisional de la app con el aviso académico y su prueba de widget.
+
+### Cambiado
+
+- Sustituido el contador de la plantilla de Flutter por la pantalla provisional de LexiEC.
+
+### Eliminado
+
+- `workflows/ci.yml`, que no estaba activo, sustituido por los workflows de `.github/workflows/`.
 
 ### Seguridad
 

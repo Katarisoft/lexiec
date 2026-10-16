@@ -1,0 +1,83 @@
+# CI del backend (Django) de LexiEC.
+#
+# Ejecuta las comprobaciones y pruebas de backend/ contra un PostgreSQL 16
+# efímero que solo existe durante la ejecución. Las credenciales de esa base
+# son de prueba, no protegen nada real y no son secretos del proyecto.
+
+name: CI backend
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'backend/**'
+      - '.github/workflows/ci-backend.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/ci-backend.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-backend-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  django:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: backend
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: lexiec
+          POSTGRES_USER: lexiec_ci
+          POSTGRES_PASSWORD: lexiec_ci_efimera
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U lexiec_ci -d lexiec"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      # DEBUG solo genera una SECRET_KEY efímera; el runner de pruebas de
+      # Django desactiva DEBUG durante la ejecución de las pruebas.
+      DJANGO_DEBUG: '1'
+      POSTGRES_DB: lexiec
+      POSTGRES_USER: lexiec_ci
+      POSTGRES_PASSWORD: lexiec_ci_efimera
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: '5432'
+
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v7
+
+      # Misma versión registrada en docs/ESTADO.md.
+      - name: Instalar Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Instalar las dependencias
+        run: pip install -r requirements.txt
+
+      - name: Comprobar la configuración
+        run: python manage.py check
+
+      - name: Comprobar migraciones pendientes
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Ejecutar las pruebas
+        run: python manage.py test --noinput
