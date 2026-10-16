@@ -15,6 +15,9 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Pruebas del backend sobre la conexión a PostgreSQL, las variables de entorno y el arranque sin `SECRET_KEY`.
 - Pantalla provisional de la app con el aviso académico y su prueba de widget.
 
+- App `library` con `LegalArea`, `SourceDocument`, `SourceFragment` y `TopicCard`, migración inicial y administración en Django Admin.
+- Estados independientes de revisión humana, publicación y vigencia, con restricciones en base de datos y consultas `published()` y `eligible_for_assistant()`.
+
 ### Cambiado
 
 - El backend carga `backend/.env` con `python-dotenv` 1.2.4, sin sobrescribir variables del entorno.
