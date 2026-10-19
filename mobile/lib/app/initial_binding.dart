@@ -4,10 +4,12 @@ import '../core/config/app_config.dart';
 import '../core/network/api_client.dart';
 import '../core/security/token_storage.dart';
 import '../core/services/link_opener.dart';
+import '../data/repositories/assistant_repository.dart';
 import '../data/repositories/auth_repository.dart';
 import '../data/repositories/community_repository.dart';
 import '../data/repositories/library_repository.dart';
 import '../data/repositories/local_library_repository.dart';
+import '../data/services/assistant_service.dart';
 import '../data/services/auth_service.dart';
 import '../data/services/community_service.dart';
 import '../data/services/library_service.dart';
@@ -52,6 +54,7 @@ class InitialBinding extends Bindings {
     );
     final auth = Get.put(AuthController(Get.find()), permanent: true);
     Get.put(LibraryRepository(LibraryService(client.dio)), permanent: true);
+    Get.put(AssistantRepository(AssistantService(client.dio)), permanent: true);
     Get.put(CommunityRepository(CommunityService(client.dio)), permanent: true);
     Get.put<LinkOpener>(
       _linkOpener ?? UrlLauncherLinkOpener(),

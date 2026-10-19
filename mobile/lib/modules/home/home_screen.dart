@@ -57,9 +57,33 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: FilledButton.icon(
+                      key: const Key('open-assistant'),
+                      onPressed: () => Get.toNamed<void>(AppRoutes.assistant),
+                      icon: const Icon(Icons.question_answer),
+                      label: const Text('Preguntar'),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      key: const Key('open-history-home'),
+                      onPressed: () => Get.toNamed<void>(AppRoutes.history),
+                      icon: const Icon(Icons.history),
+                      label: const Text('Mi historial'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text('Elige un área para consultar sus fichas.'),
+              padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Text('O elige un área para consultar sus fichas.'),
             ),
             Expanded(
               child: Obx(() {

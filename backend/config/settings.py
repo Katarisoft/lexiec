@@ -126,6 +126,10 @@ ASSISTANT_MAX_OUTPUT_TOKENS = int(os.environ.get('ASSISTANT_MAX_OUTPUT_TOKENS', 
 # Proveedor (E16): solo Anthropic; la clave ANTHROPIC_API_KEY se lee del
 # entorno del servidor y nunca se versiona ni se envía a la app móvil.
 ASSISTANT_PROVIDER = os.environ.get('ASSISTANT_PROVIDER', 'anthropic')
+# Interruptor de seguridad: sin ASSISTANT_LIVE_CALLS=1 no se llama al
+# proveedor de pago aunque exista la clave (el asistente responde 503).
+# Solo el propietario lo activa al autorizar un lote de pruebas reales.
+ASSISTANT_LIVE_CALLS = env_bool('ASSISTANT_LIVE_CALLS', default=False)
 ASSISTANT_EFFORT = os.environ.get('ASSISTANT_EFFORT', 'low')
 ASSISTANT_TIMEOUT_SECONDS = float(os.environ.get('ASSISTANT_TIMEOUT_SECONDS', '30'))
 ASSISTANT_DAILY_LIMIT_PER_USER = int(os.environ.get('ASSISTANT_DAILY_LIMIT_PER_USER', '10'))

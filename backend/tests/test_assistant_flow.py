@@ -175,6 +175,13 @@ class ClaudeAnswererTests(TestCase):
                     self.answer_with(side_effect=error)
                 self.assertEqual((ctx.exception.code, ctx.exception.billing), (code, billing))
 
+    @override_settings(ASSISTANT_LIVE_CALLS=False)
+    def test_live_calls_disabled_by_default_even_with_api_key(self):
+        with mock.patch.dict(os.environ, {'ANTHROPIC_API_KEY': 'clave-ficticia-de-prueba'}):
+            with self.assertRaises(ProviderNotConfigured):
+                get_answerer()
+
+    @override_settings(ASSISTANT_LIVE_CALLS=True)
     def test_missing_api_key_fails_instead_of_using_a_double(self):
         with mock.patch.dict(os.environ, {}, clear=False):
             os.environ.pop('ANTHROPIC_API_KEY', None)
@@ -348,8 +355,15 @@ class ConsultationFlowTests(FlowMixin, TestCase):
             response = self.post()
         self.assertEqual(response.status_code, 503)
 
-        with mock.patch.dict(os.environ, {}, clear=False):
+        with mock.patch.dict(os.environ, {}, clear=False), override_settings(
+            ASSISTANT_LIVE_CALLS=True
+        ):
             os.environ.pop('ANTHROPIC_API_KEY', None)
+            response = self.post()
+        self.assertEqual(response.status_code, 503)
+
+        # Con clave pero sin el interruptor: 503 sin reservar ni llamar.
+        with mock.patch.dict(os.environ, {'ANTHROPIC_API_KEY': 'clave-ficticia-de-prueba'}):
             response = self.post()
         self.assertEqual(response.status_code, 503)
         self.assertEqual(response.json()['error']['code'], 'assistant_unavailable')

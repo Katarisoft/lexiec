@@ -2,6 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../data/models/library_models.dart';
+import '../modules/assistant/assistant_controllers.dart';
+import '../modules/assistant/assistant_screen.dart';
+import '../modules/assistant/consultation_detail_screen.dart';
+import '../modules/assistant/history_screen.dart';
 import '../modules/auth/auth_controller.dart';
 import '../modules/auth/login_screen.dart';
 import '../modules/auth/register_screen.dart';
@@ -70,6 +74,32 @@ abstract class AppPages {
       name: AppRoutes.favorites,
       page: () => const FavoritesScreen(),
       middlewares: [AuthGuard()],
+    ),
+    // Controladores no permanentes: se descartan al salir, sin datos de la
+    // cuenta en memoria tras cerrar sesión.
+    GetPage(
+      name: AppRoutes.assistant,
+      page: () => const AssistantScreen(),
+      middlewares: [AuthGuard()],
+      binding: BindingsBuilder(() {
+        Get.put(AssistantController(Get.find(), Get.find()));
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.history,
+      page: () => const HistoryScreen(),
+      middlewares: [AuthGuard()],
+      binding: BindingsBuilder(() {
+        Get.put(HistoryController(Get.find()));
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.consultation,
+      page: () => const ConsultationDetailScreen(),
+      middlewares: [AuthGuard()],
+      binding: BindingsBuilder(() {
+        Get.put(ConsultationDetailController(Get.find(), Get.arguments as int));
+      }),
     ),
   ];
 }

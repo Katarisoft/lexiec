@@ -201,6 +201,10 @@ class ClaudeAnswerer:
 
 def get_answerer():
     """Proveedor real configurado. Las pruebas lo sustituyen explícitamente."""
+    if not getattr(settings, 'ASSISTANT_LIVE_CALLS', False):
+        raise ProviderNotConfigured(
+            'Llamadas reales desactivadas (ASSISTANT_LIVE_CALLS no está activo).'
+        )
     provider = getattr(settings, 'ASSISTANT_PROVIDER', 'anthropic')
     if provider != 'anthropic':
         raise ProviderNotConfigured(f'Proveedor no soportado: {provider}.')

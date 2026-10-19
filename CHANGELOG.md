@@ -43,6 +43,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Control de presupuesto de IA: registro `AIUsage` sin texto de consultas, reserva del coste máximo antes de cada llamada con bloqueo de PostgreSQL, conciliación, estado incierto que sigue contando, liberación solo si no se envió, límite diario por cuenta y comando `ai_budget` (`docs/PRESUPUESTO.md`).
 - Adaptador de Claude (`anthropic` 1.15.0, sin reintentos ni herramientas) con documentos citables, abstención con marcador, rechazo de afirmaciones sin citas o con citas inválidas, y clasificación de errores para el presupuesto.
 - `POST /api/v1/consultations/`: consulta completa con recuperación, presupuesto, idempotencia (también concurrente) y errores 409, 422, 429 y 503.
+- Asistente en la app: área, aviso previo sobre datos personales, envío solo explícito, respuesta con fuentes oficiales citadas, estados distintos para «sin respaldo» y error técnico, reintento consciente con el mismo `client_request_id`, e historial privado con detalle y borrado confirmado.
 
 ### Cambiado
 
@@ -60,6 +61,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 ### Seguridad
 
+- Interruptor `ASSISTANT_LIVE_CALLS`, desactivado por defecto: ninguna llamada real al proveedor sin activarlo expresamente.
 - La clave de Anthropic solo se lee del entorno del servidor; sin ella el asistente responde 503 y nunca usa respuestas simuladas.
 - El presupuesto de IA falla de forma cerrada si faltan tarifas o la configuración es incoherente; corte operativo de USD 8 sobre USD 10.
 - Las consultas de otras cuentas responden 404 (no revelan su existencia); el borrado elimina la pregunta, la respuesta y las citas.
