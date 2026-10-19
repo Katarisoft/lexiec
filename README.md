@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) pantallas de autenticación (E09b, aceptada) biblioteca móvil con fuentes (E10, aceptada; probada con datos DEMO ficticios porque la colección real depende de la revisión jurídica) comentarios móviles con prueba A/B en dispositivo (E11, aceptada) y favoritos y notas locales por cuenta (E12, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) pantallas de autenticación (E09b, aceptada) biblioteca móvil con fuentes (E10, aceptada; probada con datos DEMO ficticios porque la colección real depende de la revisión jurídica) comentarios móviles con prueba A/B en dispositivo (E11, aceptada) favoritos y notas locales por cuenta (E12, aceptada) e historial privado de consultas en el backend (E13, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -86,7 +86,7 @@ CHANGELOG.md            cambios por versión
 GUIA_MAESTRA.md         guía de desarrollo por entregas
 ```
 
-PENDIENTE: `infra/` (contenedores y despliegue), la app `assistant`, y la publicación del APK en `.github/workflows/`.
+PENDIENTE: `infra/` (contenedores y despliegue), la parte de IA de la app `assistant` (recuperación, presupuesto y proveedor), y la publicación del APK en `.github/workflows/`.
 
 ## Configuración
 
@@ -338,7 +338,7 @@ Políticas previstas; verificar su implementación antes de marcarlas como cumpl
 - [ ] Secretos fuera del repositorio y auditoría del historial realizada.
 - [ ] Token móvil en almacenamiento seguro, nunca impreso.
 - [ ] Clave de IA solo en servidor.
-- [ ] Historial filtrado por propietario y permisos por objeto probados.
+- [x] Historial filtrado por propietario y permisos por objeto probados (comentarios E08 y consultas E13, con usuarios A/B).
 - [ ] Autor de comentarios asignado en servidor.
 - [x] Favoritos/notas separados por cuenta; logout limpia memoria y cierra cajas (E12: pruebas con Hive real y verificación en dispositivo con dos cuentas).
 - [x] Notas locales no se presentan como almacenamiento seguro de datos sensibles (aviso visible en la nota; Hive sin cifrar y sin tokens).
@@ -368,7 +368,7 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E12 sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E13 sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
@@ -377,7 +377,7 @@ Resultados locales del 2026-10-19 (cambios de E12 sin commit, sin Docker):
 | `flutter test` | 99 pruebas superadas (favoritos y notas: Hive real con reinicio y aislamiento por cuenta, cambio de cuenta en pantallas; comentarios: publicar, editar, borrar, A/B y conservación de texto; configuración; errores HTTP y de red; renovación única ante 401; autenticación; biblioteca: estados carga/vacío/error, búsqueda, paginación, detalle con fuentes y enlaces; regla de pantallas sin HTTP) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
-| `manage.py test --noinput` (PostgreSQL 16 local) | 107 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
+| `manage.py test --noinput` (PostgreSQL 16 local) | 124 pruebas superadas (historial privado A/B, validación de citas e idempotencia; configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
 
 CI en GitHub Actions: `.github/workflows/ci-mobile.yml` y `.github/workflows/ci-backend.yml`, este último con PostgreSQL 16 efímero. PENDIENTE: ejecución remota no confirmada, porque el repositorio aún no tiene remoto.
 

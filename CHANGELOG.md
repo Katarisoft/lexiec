@@ -38,6 +38,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Comando de desarrollo `seed_demo_library` para datos ficticios rotulados (solo con DEBUG).
 - Comentarios en el detalle de ficha: listado con recarga explícita y «Ver más», publicación con progreso y sin duplicados, conservación del texto si falla, edición en diálogo y borrado con confirmación; acciones visibles solo en comentarios propios.
 - Favoritos y notas locales con Hive (hive_ce), separados por cuenta, persistentes tras reiniciar y disponibles sin conexión como copia guardada con fecha; borrado explícito de los datos locales de la cuenta.
+- App `assistant`: `Consultation` y `ConsultationCitation`, historial privado (`GET`/`DELETE /api/v1/consultations/`) filtrado por propietario, y servicio de registro idempotente que valida las citas sin depender del proveedor de IA.
 
 ### Cambiado
 
@@ -55,6 +56,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 ### Seguridad
 
+- Las consultas de otras cuentas responden 404 (no revelan su existencia); el borrado elimina la pregunta, la respuesta y las citas.
 - HTTP sin cifrar permitido solo en el manifiesto de depuración de Android; el release exige HTTPS. Permiso `INTERNET` declarado en el manifiesto principal.
 - Permisos por objeto en comentarios; autor y ficha asignados en el servidor; el correo de las cuentas no se expone a otras cuentas.
 

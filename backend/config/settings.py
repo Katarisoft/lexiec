@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.library',
     'apps.community',
+    'apps.assistant',
 ]
 
 # Login por correo para la API; ModelBackend se mantiene para Django Admin.

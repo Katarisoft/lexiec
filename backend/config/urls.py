@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/v1/auth/', include('apps.accounts.urls')),
     path('api/v1/', include('apps.library.urls')),
     path('api/v1/', include('apps.community.urls')),
+    path('api/v1/', include('apps.assistant.urls')),
 ]
 
 # Respuestas JSON sin detalles internos para rutas /api/ (solo con DEBUG=False).

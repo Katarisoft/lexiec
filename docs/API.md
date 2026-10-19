@@ -1,6 +1,6 @@
 # API de LexiEC — v1
 
-Estado: implementado en el backend hasta E08 (autenticación, biblioteca y comentarios). Consultas e historial se documentarán en sus entregas.
+Estado: implementado en el backend hasta E13 (autenticación, biblioteca, comentarios e historial privado). La creación de consultas con IA se documentará en E16/E17.
 
 - **Base:** `/api/v1/`.
 - **Formato:** JSON en peticiones y respuestas. Otros tipos de contenido reciben 415.
@@ -143,7 +143,26 @@ Opiniones de la comunidad sobre fichas publicadas. **No son fuente normativa** n
 - **Moderación:** en Django Admin, donde se pueden consultar y eliminar comentarios y moderar alias. Las cuentas staff no tienen permisos especiales en la API.
 - **Sin tiempo real:** los cambios se ven al recargar.
 
-## 5. Limitaciones conocidas
+## 5. Historial privado de consultas (requiere sesión)
+
+| Método y ruta | Respuesta |
+|---|---|
+| `GET consultations/?page=<n>` | 200 paginado (20), solo consultas propias, de la más reciente a la más antigua: `{"id", "area": {"slug", "name"}, "question", "status", "status_label", "created_at"}` |
+| `GET consultations/{id}/` | 200 con lo anterior más `answer`, `limitations`, `error_code` y `citations` (`fragment`, `locator`, `document_title`, `official_url`, `quoted_text`). **404** si la consulta no existe o es de otra cuenta |
+| `DELETE consultations/{id}/` | 204. Borra la pregunta, la respuesta y las citas. **404** si es de otra cuenta |
+| `POST consultations/` | 405 hasta E16/E17 (creación con el asistente) |
+
+- **Estados:**
+  - `answered`: respondida con respaldo; siempre lleva al menos una cita;
+  - `no_support`: sin respaldo suficiente; sin respuesta inventada ni citas;
+  - `error`: error técnico; sin respuesta, solo un `error_code` estable.
+
+  «Sin respaldo» no es lo mismo que «error técnico».
+- **Citas:** solo pueden referirse a fragmentos enviados al proveedor y elegibles (revisados y publicados). Cada cita guarda una copia del respaldo mostrado, que se conserva aunque el fragmento se elimine después.
+- **Idempotencia:** cada consulta tiene un `client_request_id` generado por la app, único por cuenta. Reenviar el mismo identificador devuelve la misma consulta, y reutilizarlo con otra pregunta es un conflicto.
+- **Retención:** el borrado elimina el contenido de la base activa de inmediato. Las copias de seguridad del servidor pueden conservarlo hasta que caduque su ciclo de retención (se definirá en E20); no se promete borrado instantáneo en las copias.
+
+## 6. Limitaciones conocidas
 
 - Búsqueda sensible a tildes. Se evaluará en E14 (recuperación) sin añadir infraestructura.
 - Los límites de intentos usan la caché local por proceso. Con varios procesos o servidores, el límite efectivo se multiplica.
