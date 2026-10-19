@@ -27,7 +27,10 @@ class AreaListView(generics.ListAPIView):
             topics__publication_status=PublicationStatus.PUBLISHED,
             topics__review_status=ReviewStatus.APPROVED,
         )
-        return LegalArea.objects.annotate(published_topics=Count('topics', filter=published))
+        # Orden explícito: Django no aplica Meta.ordering en consultas con GROUP BY.
+        return LegalArea.objects.annotate(
+            published_topics=Count('topics', filter=published)
+        ).order_by('order', 'name')
 
 
 class TopicListView(generics.ListAPIView):

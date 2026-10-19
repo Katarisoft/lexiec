@@ -59,6 +59,22 @@ class AreaListTests(LibraryApiTestCase):
         self.assertEqual(counts, {'area-uno': 1, 'area-dos': 0})
 
 
+    def test_areas_are_ordered_by_order_then_name(self):
+        """Regresión: el GROUP BY de la anotación ignoraba Meta.ordering."""
+        from apps.library.models import LegalArea
+
+        LegalArea.objects.filter(slug='area-uno').update(order=3)
+        LegalArea.objects.filter(slug='area-dos').update(order=1)
+        make_area(slug='area-tres', name='Área ficticia tres')
+        LegalArea.objects.filter(slug='area-tres').update(order=2)
+
+        response = self.client.get(reverse('library:area-list'))
+        self.assertEqual(
+            [item['slug'] for item in response.data],
+            ['area-dos', 'area-tres', 'area-uno'],
+        )
+
+
 class TopicListTests(LibraryApiTestCase):
     url = reverse('library:topic-list')
 

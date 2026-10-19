@@ -33,6 +33,9 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Núcleo móvil: configuración de `API_BASE_URL`, cliente Dio con renovación única de sesión ante 401, errores tipados según `docs/API.md`, tokens en almacenamiento seguro, repositorio y `AuthController` (GetX).
 - Dependencias móviles: get 4.7.3, dio 5.11.1 y flutter_secure_storage 11.2.0.
 - Tema, rutas con protección de sesión, `InitialBinding` y pantallas de arranque, login, registro e inicio protegido con cierre de sesión.
+- Biblioteca móvil: áreas en el inicio, listado por área o global con búsqueda explícita y «Cargar más», y detalle con fuentes (institución, documento, localizador, fechas, vigencia y limitaciones) y apertura segura del enlace oficial (url_launcher 6.3.3).
+- Componentes reutilizables de carga, vacío y error con reintento.
+- Comando de desarrollo `seed_demo_library` para datos ficticios rotulados (solo con DEBUG).
 
 ### Cambiado
 
@@ -45,6 +48,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 ### Corregido
 
+- `GET /api/v1/areas/` devolvía las áreas sin orden garantizado: Django no aplica `Meta.ordering` con `GROUP BY`; ahora se ordena explícitamente por `order` y `name`.
 - `AuthController` ya no falla al reintentar tras un error sin errores por campo (mapa constante adoptado por `RxMap.assignAll`).
 
 ### Seguridad

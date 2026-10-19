@@ -5,6 +5,12 @@ abstract class AppRoutes {
   static const register = '/register';
   static const home = '/home';
 
+  /// Argumento opcional: `AreaSummary` (sin él, todas las fichas).
+  static const topics = '/topics';
+
+  /// Argumento obligatorio: id (`int`) de la ficha.
+  static const topic = '/topic';
+
   /// Rutas que exigen sesión.
-  static const protected = {home};
+  static const protected = {home, topics, topic};
 }

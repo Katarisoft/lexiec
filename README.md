@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) y pantallas de registro, login y cierre de sesión probadas en un dispositivo físico (E09b, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) pantallas de autenticación (E09b, aceptada) y biblioteca móvil con fuentes (E10, pendiente de revisión; probada con datos DEMO ficticios porque la colección real depende de la revisión jurídica). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -160,7 +160,15 @@ No usar la base de producción para pruebas ni ejecutar borrado de volúmenes co
 
 ### 3. Aplicación Flutter
 
-Estado actual: registro, login, sesión persistente y cierre de sesión contra el backend. La biblioteca se añadirá en E10.
+Estado actual: registro, login, sesión persistente, cierre de sesión y biblioteca (áreas, fichas, búsqueda y detalle con fuentes) contra el backend.
+
+Datos de demostración **ficticios** para probar la biblioteca en desarrollo (no es legislación; solo con `DJANGO_DEBUG=1`):
+
+```bash
+cd backend
+.venv/bin/python manage.py seed_demo_library          # crear
+.venv/bin/python manage.py seed_demo_library --clear  # eliminar (obligatorio antes de cargar la colección real)
+```
 
 Prueba en dispositivo físico por USB, comprobada el 2026-10-19 en un Pixel 9a (sin exponer el backend a la red local):
 
@@ -360,16 +368,16 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E09b sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E10 sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
 | `dart format` (comprobación) | Sin cambios |
 | `flutter analyze` | Sin problemas |
-| `flutter test` | 50 pruebas superadas (configuración; errores HTTP y de red; renovación única ante 401; repositorio y controlador; flujos de pantallas de autenticación; regla de pantallas sin HTTP) |
+| `flutter test` | 69 pruebas superadas (configuración; errores HTTP y de red; renovación única ante 401; autenticación; biblioteca: estados carga/vacío/error, búsqueda, paginación, detalle con fuentes y enlaces; regla de pantallas sin HTTP) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
-| `manage.py test --noinput` (PostgreSQL 16 local) | 103 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
+| `manage.py test --noinput` (PostgreSQL 16 local) | 107 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
 
 CI en GitHub Actions: `.github/workflows/ci-mobile.yml` y `.github/workflows/ci-backend.yml`, este último con PostgreSQL 16 efímero. PENDIENTE: ejecución remota no confirmada, porque el repositorio aún no tiene remoto.
 

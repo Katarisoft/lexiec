@@ -11,6 +11,7 @@ void main() {
       'package:http/',
       'package:flutter_secure_storage/',
       'package:hive',
+      'package:url_launcher/',
       '/data/services/',
       '/core/network/',
       '/core/security/',
