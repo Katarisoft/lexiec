@@ -108,6 +108,10 @@ REST_FRAMEWORK = {
     },
 }
 
+# Recuperación del asistente (E14): cobertura mínima de palabras clave en el
+# mejor fragmento para considerar que hay respaldo. Provisional hasta E18.
+ASSISTANT_MIN_COVERAGE = float(os.environ.get('ASSISTANT_MIN_COVERAGE', '0.5'))
+
 # Access de vida corta: tras el logout solo se invalida el refresh, y un
 # access ya emitido sigue siendo válido hasta caducar.
 SIMPLE_JWT = {

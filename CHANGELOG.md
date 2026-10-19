@@ -39,6 +39,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Comentarios en el detalle de ficha: listado con recarga explícita y «Ver más», publicación con progreso y sin duplicados, conservación del texto si falla, edición en diálogo y borrado con confirmación; acciones visibles solo en comentarios propios.
 - Favoritos y notas locales con Hive (hive_ce), separados por cuenta, persistentes tras reiniciar y disponibles sin conexión como copia guardada con fecha; borrado explícito de los datos locales de la cuenta.
 - App `assistant`: `Consultation` y `ConsultationCitation`, historial privado (`GET`/`DELETE /api/v1/consultations/`) filtrado por propietario, y servicio de registro idempotente que valida las citas sin depender del proveedor de IA.
+- Recuperación de fragmentos para el asistente: área obligatoria, solo contenido revisado y publicado, búsqueda de texto completo en español sin tildes, términos controlados, cobertura mínima configurable y contexto acotado; abstención sin llamar al proveedor (`docs/RECUPERACION.md`).
 
 ### Cambiado
 
