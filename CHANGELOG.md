@@ -30,6 +30,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Formato común de errores con códigos estables para 400, 401, 403, 404, 405, 415, 422, 429 y 500, documentado en `docs/API.md`.
 - App `community`: comentarios públicos en fichas publicadas con listado paginado, creación, edición y borrado solo por el autor, y moderación en Django Admin.
 - Perfil de cuenta con alias público opcional (`display_name`) en el registro y en `PATCH /api/v1/auth/me/`.
+- Núcleo móvil: configuración de `API_BASE_URL`, cliente Dio con renovación única de sesión ante 401, errores tipados según `docs/API.md`, tokens en almacenamiento seguro, repositorio y `AuthController` (GetX).
+- Dependencias móviles: get 4.7.3, dio 5.11.1 y flutter_secure_storage 11.2.0.
 
 ### Cambiado
 
