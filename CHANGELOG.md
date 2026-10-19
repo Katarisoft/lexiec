@@ -28,6 +28,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Django REST Framework 3.18.3 y SimpleJWT 5.5.1 como dependencias del backend.
 - API de biblioteca: `GET /api/v1/areas/`, `GET /api/v1/topics/` (filtro por área, búsqueda y paginación) y `GET /api/v1/topics/{id}/` con fuentes publicadas, solo con sesión.
 - Formato común de errores con códigos estables para 400, 401, 403, 404, 405, 415, 422, 429 y 500, documentado en `docs/API.md`.
+- App `community`: comentarios públicos en fichas publicadas con listado paginado, creación, edición y borrado solo por el autor, y moderación en Django Admin.
+- Perfil de cuenta con alias público opcional (`display_name`) en el registro y en `PATCH /api/v1/auth/me/`.
 
 ### Cambiado
 
@@ -39,6 +41,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - `workflows/ci.yml`, que no estaba activo, sustituido por los workflows de `.github/workflows/`.
 
 ### Seguridad
+
+- Permisos por objeto en comentarios; autor y ficha asignados en el servidor; el correo de las cuentas no se expone a otras cuentas.
 
 - Límite de intentos (429) en login y registro, configurable con `API_THROTTLE_LOGIN` y `API_THROTTLE_REGISTER`.
 - Errores 404 y 500 de la API en JSON sin trazas ni detalles internos.

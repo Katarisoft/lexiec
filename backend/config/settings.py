@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'apps.accounts',
     'apps.library',
+    'apps.community',
 ]
 
 # Login por correo para la API; ModelBackend se mantiene para Django Admin.

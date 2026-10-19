@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) y API de biblioteca con contrato de errores (E07, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) y comentarios con permisos por objeto (E08, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -76,7 +76,7 @@ Estructura actual (2026-10-16):
 
 ```text
 mobile/                 aplicación Flutter (Android, com.katarisoft.lexiec)
-backend/                proyecto Django (config/), apps/accounts, apps/library y tests/
+backend/                proyecto Django (config/), apps/accounts, apps/library, apps/community y tests/
 .github/workflows/      CI: ci-mobile.yml y ci-backend.yml
 workflows/              release-apk.yml, inactivo hasta la entrega de Release
 docs/                   alcance, estado y notas de cambios por entrega
@@ -86,7 +86,7 @@ CHANGELOG.md            cambios por versión
 GUIA_MAESTRA.md         guía de desarrollo por entregas
 ```
 
-PENDIENTE: `infra/` (contenedores y despliegue), las apps `community` y `assistant`, y la publicación del APK en `.github/workflows/`.
+PENDIENTE: `infra/` (contenedores y despliegue), la app `assistant`, y la publicación del APK en `.github/workflows/`.
 
 ## Configuración
 
@@ -344,7 +344,7 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E07 sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E08 sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
@@ -353,7 +353,7 @@ Resultados locales del 2026-10-19 (cambios de E07 sin commit, sin Docker):
 | `flutter test` | 2 pruebas superadas (pantalla provisional y aviso) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
-| `manage.py test --noinput` (PostgreSQL 16 local) | 81 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT con usuarios A/B; API de biblioteca; contrato de errores 400–500 y límites 429) |
+| `manage.py test --noinput` (PostgreSQL 16 local) | 103 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
 
 CI en GitHub Actions: `.github/workflows/ci-mobile.yml` y `.github/workflows/ci-backend.yml`, este último con PostgreSQL 16 efímero. PENDIENTE: ejecución remota no confirmada, porque el repositorio aún no tiene remoto.
 

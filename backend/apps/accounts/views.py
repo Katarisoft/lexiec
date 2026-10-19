@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from rest_framework import exceptions, generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -8,12 +9,15 @@ from rest_framework_simplejwt.settings import api_settings as jwt_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from .models import Profile
 from .serializers import (
     EmailTokenObtainPairSerializer,
     LogoutSerializer,
+    ProfileUpdateSerializer,
     RegisterSerializer,
     UserSerializer,
 )
+
 
 class InvalidRefreshToken(exceptions.APIException):
     status_code = status.HTTP_400_BAD_REQUEST
@@ -41,12 +45,24 @@ class EmailTokenObtainPairView(TokenObtainPairView):
     throttle_scope = 'login'
 
 
-class MeView(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserSerializer
+class MeView(APIView):
+    """Perfil propio: consulta y actualización del alias público."""
 
-    def get_object(self):
-        return self.request.user
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response(UserSerializer(request.user).data)
+
+    def patch(self, request):
+        serializer = ProfileUpdateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        if 'display_name' in serializer.validated_data:
+            Profile.objects.update_or_create(
+                user=request.user,
+                defaults={'display_name': serializer.validated_data['display_name']},
+            )
+        user = get_user_model().objects.select_related('profile').get(pk=request.user.pk)
+        return Response(UserSerializer(user).data)
 
 
 class LogoutView(APIView):

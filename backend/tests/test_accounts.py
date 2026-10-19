@@ -48,7 +48,7 @@ class RegisterTests(AuthApiTestCase):
             self.url, {'email': '  Persona.A@Ejemplo.Invalid ', 'password': PASSWORD}, format='json'
         )
         self.assertEqual(response.status_code, 201, response.content)
-        self.assertEqual(set(response.data), {'id', 'email', 'date_joined'})
+        self.assertEqual(set(response.data), {'id', 'email', 'display_name', 'date_joined'})
         self.assertEqual(response.data['email'], 'persona.a@ejemplo.invalid')
 
         user = get_user_model().objects.get(pk=response.data['id'])
@@ -165,7 +165,7 @@ class ProtectedEndpointTests(AuthApiTestCase):
         self.authenticate(tokens['access'])
         response = self.client.get(reverse('accounts:me'))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(set(response.data), {'id', 'email', 'date_joined'})
+        self.assertEqual(set(response.data), {'id', 'email', 'display_name', 'date_joined'})
         self.assertEqual(response.data['email'], 'persona.a@ejemplo.invalid')
 
 
@@ -233,3 +233,53 @@ class RefreshAndLogoutTests(AuthApiTestCase):
         self.authenticate(tokens['access'])
         self.assertEqual(self.logout(tokens['refresh']).status_code, 204)
         self.assertEqual(self.logout(tokens['refresh']).status_code, 400)
+
+
+class ProfileTests(AuthApiTestCase):
+    def test_register_with_optional_display_name(self):
+        response = self.client.post(
+            reverse('accounts:register'),
+            {'email': 'persona.a@ejemplo.invalid', 'password': PASSWORD, 'display_name': ' Ana '},
+            format='json',
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        self.assertEqual(response.data['display_name'], 'Ana')
+
+    def test_display_name_cannot_contain_at_sign_or_exceed_length(self):
+        for name in ('persona@ejemplo.invalid', 'x' * 41):
+            with self.subTest(name=name):
+                response = self.client.post(
+                    reverse('accounts:register'),
+                    {'email': 'persona.a@ejemplo.invalid', 'password': PASSWORD, 'display_name': name},
+                    format='json',
+                )
+                self.assertEqual(response.status_code, 400)
+                self.assertIn('display_name', error_details(response))
+
+    def test_patch_me_updates_display_name_even_without_profile(self):
+        create_account('persona.a@ejemplo.invalid')
+        tokens = self.tokens_for('persona.a@ejemplo.invalid')
+        self.authenticate(tokens['access'])
+
+        response = self.client.patch(reverse('accounts:me'), {'display_name': 'Ana'}, format='json')
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertEqual(response.data['display_name'], 'Ana')
+        self.assertEqual(self.client.get(reverse('accounts:me')).data['display_name'], 'Ana')
+
+    def test_patch_me_ignores_email_and_privilege_fields(self):
+        create_account('persona.a@ejemplo.invalid')
+        tokens = self.tokens_for('persona.a@ejemplo.invalid')
+        self.authenticate(tokens['access'])
+
+        self.client.patch(
+            reverse('accounts:me'),
+            {'email': 'otra@ejemplo.invalid', 'is_staff': True},
+            format='json',
+        )
+        user = get_user_model().objects.get()
+        self.assertEqual(user.email, 'persona.a@ejemplo.invalid')
+        self.assertFalse(user.is_staff)
+
+    def test_patch_me_requires_authentication(self):
+        response = self.client.patch(reverse('accounts:me'), {'display_name': 'Ana'}, format='json')
+        self.assertEqual(response.status_code, 401)

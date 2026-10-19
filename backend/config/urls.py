@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/auth/', include('apps.accounts.urls')),
     path('api/v1/', include('apps.library.urls')),
+    path('api/v1/', include('apps.community.urls')),
 ]
 
 # Respuestas JSON sin detalles internos para rutas /api/ (solo con DEBUG=False).
