@@ -50,6 +50,7 @@ CLAUDE.local.md
 # Variables de entorno y secretos (se conserva solo .env.example)
 .env.*
 !.env.example
+!.env.production.example
 *.pem
 key.properties
 *.keystore

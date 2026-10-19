@@ -62,7 +62,7 @@ Versiones del entorno de desarrollo registradas el 2026-10-16 (ver [docs/ESTADO.
 | Python | 3.12.3, con entorno virtual en `backend/.venv` |
 | Django / Django REST Framework | Django 5.2.18 (LTS) / DRF 3.18.3; SimpleJWT 5.5.1 |
 | PostgreSQL | 16.15 en local; `postgres:16` en CI |
-| Docker / Docker Compose | 29.1.3 / 2.40.3 instalados; PENDIENTE: el proyecto aún no los usa |
+| Docker / Docker Compose | 29.1.3 / 2.40.3; despliegue del backend probado en local (E20) |
 | Entorno Android y emulador | Android SDK 36.1.0 y Gradle 9.1.0 (wrapper); PENDIENTE: ejecución en emulador no comprobada |
 
 Además:
@@ -76,7 +76,8 @@ Estructura actual (2026-10-16):
 
 ```text
 mobile/                 aplicación Flutter (Android, com.katarisoft.lexiec)
-backend/                proyecto Django (config/), apps/accounts, apps/library, apps/community y tests/
+backend/                proyecto Django (config/), apps/accounts, apps/library, apps/community, apps/assistant, tests/ y Dockerfile
+infra/                  docker-compose.prod.yml, .env.production.example y ejemplo de Nginx
 .github/workflows/      CI: ci-mobile.yml y ci-backend.yml
 workflows/              release-apk.yml, inactivo hasta la entrega de Release
 docs/                   alcance, estado y notas de cambios por entrega
@@ -86,7 +87,7 @@ CHANGELOG.md            cambios por versión
 GUIA_MAESTRA.md         guía de desarrollo por entregas
 ```
 
-PENDIENTE: `infra/` (contenedores y despliegue), la parte de IA de la app `assistant` (recuperación, presupuesto y proveedor), y la publicación del APK en `.github/workflows/`.
+PENDIENTE: la publicación del APK en `.github/workflows/`.
 
 ## Configuración
 
@@ -111,6 +112,10 @@ Variables implementadas (leídas por `backend/config/settings.py`):
 | `ASSISTANT_DAILY_LIMIT_PER_USER` | Servidor | Consultas por cuenta cada 24 horas (10). |
 | `AI_BUDGET_USD`, `AI_OPERATING_LIMIT_USD` | Servidor | Presupuesto global (10) y corte operativo (8). Ver `docs/PRESUPUESTO.md`. |
 | `ASSISTANT_MIN_COVERAGE` | Servidor | Cobertura mínima de palabras clave para considerar respaldo (por defecto `0.5`, provisional; ver `docs/RECUPERACION.md`). |
+| `DJANGO_CSRF_TRUSTED_ORIGINS` | Servidor | Orígenes HTTPS de confianza para el Admin (p. ej., `https://leixec.katarisoft.com`). |
+| `DJANGO_BEHIND_HTTPS_PROXY` | Servidor | `1` solo detrás de Nginx con HTTPS: confía en `X-Forwarded-Proto`, cookies seguras y HSTS. |
+| `DJANGO_HSTS_SECONDS`, `DJANGO_LOG_LEVEL` | Servidor | HSTS (3600 s) y nivel de registro (`WARNING`). |
+| `LEXIEC_ENV_FILE`, `LEXIEC_IMAGE_TAG`, `LEXIEC_BACKEND_PORT` | Host del Compose | Archivo de entorno (`infra/.env.production`), etiqueta de imagen (`local`) y puerto local (8001). |
 
 Variables propuestas, todavía no implementadas:
 
@@ -118,7 +123,7 @@ Variables propuestas, todavía no implementadas:
 |---|---|---|
 | `API_BASE_URL` | Flutter, configuración pública | URL de Django; no es una credencial. |
 
-PENDIENTE: variables de producción y quién configura los valores en el VPS. No adjuntar `.env`, claves de firma Android ni contraseñas al repositorio.
+Las variables de producción están en [infra/.env.production.example](infra/.env.production.example), sin secretos. El propietario rellena los valores en el VPS. No adjuntar `.env`, claves de firma Android ni contraseñas al repositorio.
 
 ## Cómo ejecutar el proyecto
 
@@ -151,15 +156,22 @@ cd backend
 
 Las pruebas necesitan un rol de PostgreSQL con permiso `CREATEDB`: Django crea y borra la base temporal `test_<POSTGRES_DB>`.
 
-PENDIENTE de documentar y verificar:
-1. Archivo Compose utilizado y nombre real del servicio Django.
-2. Configuración de variables de producción sin secretos.
-3. Comando para construir y levantar los contenedores.
-4. Comando de migraciones dentro de contenedores (en local sin Docker: `manage.py migrate`, ver arriba).
-5. Comando idempotente para cargar las 21 fichas revisadas.
-6. Creación local de cuenta administrativa por el propietario, sin publicar credenciales.
-7. Endpoint de salud y resultado esperado.
-8. Comandos para detener servicios sin eliminar volúmenes.
+Con Docker (servicios `db` y `backend`), comprobado en local el 2026-10-19. El plan completo está en [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md): Nginx, copias de seguridad, vuelta atrás y avisos aceptados.
+
+```bash
+cp infra/.env.production.example infra/.env.production   # rellenar secretos; chmod 600
+docker compose -f infra/docker-compose.prod.yml up -d --build
+docker compose -f infra/docker-compose.prod.yml run --rm backend python manage.py migrate
+docker compose -f infra/docker-compose.prod.yml run --rm backend python manage.py createsuperuser
+curl -s -H 'Host: <host de DJANGO_ALLOWED_HOSTS>' -H 'X-Forwarded-Proto: https' \
+  http://127.0.0.1:8001/api/v1/health/                      # {"status":"ok"}
+docker compose -f infra/docker-compose.prod.yml down        # detiene sin borrar el volumen
+```
+
+- **Verificación:** `createsuperuser` en el contenedor no se ha verificado; los demás comandos se probaron en local.
+- **PENDIENTE:**
+  - comando idempotente para cargar las 21 fichas revisadas (E05/E18);
+  - despliegue real en el VPS.
 
 No usar la base de producción para pruebas ni ejecutar borrado de volúmenes como paso normal de arranque.
 
@@ -349,8 +361,8 @@ Políticas previstas; verificar su implementación antes de marcarlas como cumpl
 - [x] Notas locales no se presentan como almacenamiento seguro de datos sensibles (aviso visible en la nota; Hive sin cifrar y sin tokens).
 - [ ] Preguntas y respuestas privadas no se registran en logs operativos.
 - [ ] Eliminación de consultas y política de retención de copias documentadas.
-- [ ] PostgreSQL sin exposición pública y backend con HTTPS.
-- [ ] Configuración de producción revisada: DEBUG desactivado y hosts limitados.
+- [ ] PostgreSQL sin exposición pública y backend con HTTPS. Verificado en local (E20): db sin puertos y backend solo en `127.0.0.1`. PENDIENTE: el HTTPS real en el VPS.
+- [x] Configuración de producción revisada: DEBUG desactivado y hosts limitados (E20: prueba de ajustes y `check --deploy` con 3 avisos justificados en `docs/DESPLIEGUE.md`).
 
 PENDIENTE: política real de backups, acceso, retención y eliminación. No afirmar que un borrado en la app elimina de inmediato todas las copias de respaldo.
 
@@ -373,7 +385,7 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E17 sin commit, sin Docker):
+Resultados locales del 2026-10-19 (app: E17; backend: cambios de E20 sin commit, pruebas en el host):
 
 | Comando | Resultado |
 |---|---|
@@ -382,7 +394,7 @@ Resultados locales del 2026-10-19 (cambios de E17 sin commit, sin Docker):
 | `flutter test` | 115 pruebas superadas (asistente: validación previa, idempotencia de reintentos, sin respaldo frente a error, historial privado y cambio de cuenta; favoritos y notas: Hive real con reinicio y aislamiento por cuenta, cambio de cuenta en pantallas; comentarios: publicar, editar, borrar, A/B y conservación de texto; configuración; errores HTTP y de red; renovación única ante 401; autenticación; biblioteca: estados carga/vacío/error, búsqueda, paginación, detalle con fuentes y enlaces; regla de pantallas sin HTTP) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
-| `manage.py test --noinput` (PostgreSQL 16 local) | 175 pruebas superadas (interruptor de llamadas reales; asistente con dobles: citas, abstención, timeout, citas inválidas, límites, idempotencia concurrente; presupuesto: fallo cerrado, reservas concurrentes con hilos, incertidumbre y cuota; recuperación: área obligatoria, tildes, raíces, términos controlados, abstención; historial privado A/B, validación de citas e idempotencia; configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
+| `manage.py test --noinput` (PostgreSQL 16 local, E20) | 178 pruebas superadas (despliegue: salud pública y 503 sin detalles, ajustes de producción; interruptor de llamadas reales; asistente con dobles: citas, abstención, timeout, citas inválidas, límites, idempotencia concurrente; presupuesto: fallo cerrado, reservas concurrentes con hilos, incertidumbre y cuota; recuperación: área obligatoria, tildes, raíces, términos controlados, abstención; historial privado A/B, validación de citas e idempotencia; configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
 
 CI en GitHub Actions: `.github/workflows/ci-mobile.yml` y `.github/workflows/ci-backend.yml`, este último con PostgreSQL 16 efímero. PENDIENTE: ejecución remota no confirmada, porque el repositorio aún no tiene remoto.
 

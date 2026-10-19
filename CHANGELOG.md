@@ -44,6 +44,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Adaptador de Claude (`anthropic` 1.15.0, sin reintentos ni herramientas) con documentos citables, abstención con marcador, rechazo de afirmaciones sin citas o con citas inválidas, y clasificación de errores para el presupuesto.
 - `POST /api/v1/consultations/`: consulta completa con recuperación, presupuesto, idempotencia (también concurrente) y errores 409, 422, 429 y 503.
 - Asistente en la app: área, aviso previo sobre datos personales, envío solo explícito, respuesta con fuentes oficiales citadas, estados distintos para «sin respaldo» y error técnico, reintento consciente con el mismo `client_request_id`, e historial privado con detalle y borrado confirmado.
+- Despliegue con Docker: `backend/Dockerfile` (gunicorn 26.2.0, whitenoise 6.12.0, usuario sin privilegios), `infra/docker-compose.prod.yml` con PostgreSQL privado y backend solo en `127.0.0.1`, plantilla `infra/.env.production.example` sin secretos, ejemplo de Nginx y plan en `docs/DESPLIEGUE.md`.
+- `GET /api/v1/health/`: comprobación pública y mínima; 503 sin detalles si la base no responde.
 
 ### Cambiado
 
@@ -61,6 +63,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 ### Seguridad
 
+- Producción detrás de proxy HTTPS (`DJANGO_BEHIND_HTTPS_PROXY`): cookies seguras, HSTS inicial de 1 hora, `nosniff`, `CSRF_TRUSTED_ORIGINS` configurable y registros sin cuerpos de peticiones.
 - Interruptor `ASSISTANT_LIVE_CALLS`, desactivado por defecto: ninguna llamada real al proveedor sin activarlo expresamente.
 - La clave de Anthropic solo se lee del entorno del servidor; sin ella el asistente responde 503 y nunca usa respuestas simuladas.
 - El presupuesto de IA falla de forma cerrada si faltan tarifas o la configuración es incoherente; corte operativo de USD 8 sobre USD 10.

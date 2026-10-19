@@ -1,0 +1,71 @@
+# Despliegue de producción de LexiEC (E20).
+#
+# - PostgreSQL privado: sin puertos publicados, solo en la red interna.
+# - Backend publicado SOLO en 127.0.0.1 para el Nginx del host (HTTPS).
+# - Secretos en un archivo fuera del repositorio (LEXIEC_ENV_FILE).
+# - Las migraciones NO se ejecutan solas: ver docs/DESPLIEGUE.md.
+#
+# Uso (desde la raíz del repositorio, con infra/.env.production creado a partir
+# de infra/.env.production.example):
+#   docker compose -f infra/docker-compose.prod.yml up -d --build
+# LEXIEC_ENV_FILE, LEXIEC_IMAGE_TAG y LEXIEC_BACKEND_PORT son opcionales.
+
+name: lexiec
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    env_file: ${LEXIEC_ENV_FILE:-.env.production}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  backend:
+    build: ../backend
+    image: lexiec-backend:${LEXIEC_IMAGE_TAG:-local}
+    restart: unless-stopped
+    env_file: ${LEXIEC_ENV_FILE:-.env.production}
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      # En el contenedor no se lee ningún archivo .env: todo llega por entorno.
+      DJANGO_ENV_FILE: /nonexistent
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${LEXIEC_BACKEND_PORT:-8001}:8000"
+    networks: [internal]
+    healthcheck:
+      # Usa el primer host permitido para no requerir 'localhost' en ALLOWED_HOSTS.
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import os, urllib.request;
+          host = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')[0].strip();
+          req = urllib.request.Request('http://127.0.0.1:8000/api/v1/health/', headers={'Host': host, 'X-Forwarded-Proto': 'https'});
+          urllib.request.urlopen(req, timeout=5)
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    logging: *logging
+
+volumes:
+  pgdata:
+
+networks:
+  internal:
