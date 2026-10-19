@@ -262,3 +262,67 @@ Alternativas si se rechaza algún tema:
 - F5–F7 dependen de resolver B-01.
 
 Ninguna ficha de Familia puede alcanzar el estado «publicable» en E05 sin esas decisiones.
+
+## 8. Temas propuestos — Derecho Laboral (E04c)
+
+Fecha de elaboración: 2026-10-19. **Todos los temas están PENDIENTES DE APROBACIÓN** por Revisor Jurídico. No se transcribe el texto de los artículos.
+
+Copias de trabajo y páginas del PDF:
+- **CT-S:** D04, copia de SERCOP, «ÚLTIMA REFORMA: 2026-04-09». Sin marca de compilador ni aviso restrictivo, pero con aparato editorial (concordancias y jurisprudencia).
+- **CT-C:** D04, copia de la Corte Constitucional, «Última Reforma: … R.O. 44, 18-IV-2022». Sin marca de compilador, con notas propias.
+- **CRE-A:** D01 tipo A, R.O. 449 original.
+
+La copia del Ministerio del Trabajo (Ediciones Legales, reproducción prohibida) no se usó.
+
+Comparación CT-S / CT-C: se segmentaron los artículos de ambas copias y se compararon. La comparación automática **no es concluyente**: las diferencias se deben en gran parte al aparato editorial distinto (por ejemplo, el art. 8 coincide en su texto normativo, pero una copia añade jurisprudencia y la otra notas sobre el salario básico). Solo el art. 69 coincide íntegramente. Revisor Jurídico debe cotejar cada artículo con el Registro Oficial, en especial los que CT-C anota como reformados (arts. 11, 14, 184 y 185: «Ley s/n, R.O. 483-3S»; art. 152: «Ley s/n, R.O. 528-S, 13-II-2009»).
+
+### Resumen
+
+| ID | Pregunta ciudadana | Documento y localizador | Páginas (CT-S / CT-C) | Estado |
+|---|---|---|---|---|
+| L1 | ¿Qué es un contrato de trabajo y qué tipos existen? | D04 arts. 8, 11 y 14; D01 art. 33 | 4, 6, 7 / 4, 4, 5; CRE-A 13 | Pendiente de aprobación |
+| L2 | ¿Cuál es la jornada máxima y cómo se pagan las horas extra? | D04 arts. 47 y 55 | 28, 30 / 23, 26 | Pendiente de aprobación |
+| L3 | ¿Qué son la décima tercera y la décima cuarta remuneración? | D04 arts. 111 y 113 | 43, 44 / 41, 41 | Pendiente de aprobación |
+| L4 | ¿Cuántos días de vacaciones corresponden? | D04 art. 69 | 33 / 30 | Pendiente de aprobación |
+| L5 | ¿Qué pasa si me despiden sin causa legal (despido intempestivo)? | D04 arts. 169 y 188 | 63, 70 / 61, 67 | Pendiente de aprobación |
+| L6 | ¿Cómo renunciar con aviso (desahucio) y qué bonificación corresponde? | D04 arts. 184 y 185 | 69, 69 / 66, 66 | Pendiente de aprobación |
+| L7 | ¿Tengo derecho a participar en las utilidades de la empresa? | D04 art. 97 | 38 / 36 | Pendiente de aprobación |
+
+Alternativas:
+- **L-alt1:** licencia por maternidad y paternidad (D04 art. 152, CT-S 54 / CT-C 54; D01 art. 332, CRE-A 59). Hay un proyecto de reforma relacionado en trámite (ver D03), así que el riesgo de desactualización es alto.
+- **L-alt2:** afiliación al IESS desde el primer día (D04 art. 42 num. 31, CT-S 18 / CT-C 14; D01 art. 34, CRE-A 13). La Ley de Seguridad Social no está inventariada.
+
+### Detalle por tema
+
+**L1 — Contrato de trabajo y sus tipos**
+- Localizadores: D04 art. 8 («Contrato individual»), art. 11 («Clasificación») y art. 14 («Contrato tipo y excepciones»); D01 art. 33.
+- Riesgo: según CT-C, los arts. 11 y 14 fueron sustituidos (R.O. 483-3S). Las modalidades contractuales cambian con frecuencia; cotejar con la reforma de 2026 declarada por CT-S.
+
+**L2 — Jornada máxima y horas suplementarias o extraordinarias**
+- Localizadores: D04 art. 47 («De la jornada máxima») y art. 55 («Remuneración por horas suplementarias y extraordinarias»).
+- Limitación: hay jornadas especiales y excepciones fuera de estos artículos.
+
+**L3 — Décima tercera y décima cuarta remuneración**
+- Localizadores: D04 art. 111 («Derecho a la décima tercera remuneración o bono navideño») y art. 113 («Derecho a la decimocuarta remuneración»).
+- Exclusión: no se publicarán montos ni el salario básico unificado vigente, que cambian cada año y dependen de acuerdos ministeriales no inventariados.
+
+**L4 — Vacaciones anuales**
+- Localizador: D04 art. 69 («Vacaciones anuales»). Texto coincidente en CT-S y CT-C.
+
+**L5 — Despido intempestivo**
+- Localizadores: D04 art. 169 («Causas para la terminación del contrato individual») y art. 188 («Indemnización por despido intempestivo»).
+- Riesgo: el cálculo de una indemnización concreta requiere asesoría. La ficha explicará la regla general y no hará cálculos personalizados.
+
+**L6 — Desahucio y bonificación**
+- Localizadores: D04 art. 184 («Desahucio») y art. 185 («Bonificaciones por desahucio»).
+- Nota: en CT-S el desahucio aparece como aviso escrito de la persona trabajadora. CT-C los anota como reformados (R.O. 483-3S). Cotejar.
+
+**L7 — Participación en utilidades**
+- Localizador: D04 art. 97 («Participación de trabajadores en utilidades de la empresa»).
+- Limitación: los porcentajes y el procedimiento de pago pueden depender de normas reglamentarias no inventariadas.
+
+### Conclusión para Laboral
+
+- Hay dos copias del Código del Trabajo sin aviso restrictivo. Siguen pendientes de P-02 (condiciones de reproducción) y del cotejo de la reforma de 2026-04-09, cuya edición del R.O. no se ha identificado.
+- No hay bloqueos equivalentes a B-01, pero ningún tema está aprobado.
+- Los artículos constitucionales (33, 34, 326, 328 y 332) tienen texto tipo A en CRE-A (págs. 13, 58 y 59).

@@ -39,7 +39,7 @@ En E05, cada aprobación se registrará en el sistema con la cuenta de staff que
 
 ## C. Temas por área
 
-Detalle de cada tema en [docs/FUENTES.md](FUENTES.md), sección 7 (Familia). Laboral y Constitucional se añadirán en E04c y E04d.
+Detalle de cada tema en [docs/FUENTES.md](FUENTES.md): sección 7 (Familia) y sección 8 (Laboral). Constitucional se añadirá en E04d.
 
 Decisión: **Aprobado**, **Rechazado**, **Aprobado con cambios** (indicar cuáles) o **Requiere otra fuente**.
 
@@ -56,6 +56,20 @@ Decisión: **Aprobado**, **Rechazado**, **Aprobado con cambios** (indicar cuále
 | F7 | Régimen de visitas | CONA arts. 122, 123, 124 | | | | | Revisor Jurídico | |
 | F-alt1 | Alimentos entre otros parientes (alternativa) | CC art. 349 | | | | | Revisor Jurídico | |
 | F-alt2 | Derechos de niñas, niños y adolescentes (alternativa) | CRE arts. 44, 45 | | | | | Revisor Jurídico | |
+
+### C.2 Derecho Laboral
+
+| ID | Tema | Localizadores propuestos | ¿Localizadores correctos y suficientes? | Fuente de texto autorizada para E05 | Decisión | Observaciones | Revisor | Fecha |
+|---|---|---|---|---|---|---|---|---|
+| L1 | Contrato de trabajo y sus tipos | CT arts. 8, 11, 14; CRE art. 33 | | | | | Revisor Jurídico | |
+| L2 | Jornada máxima y horas extra | CT arts. 47, 55 | | | | | Revisor Jurídico | |
+| L3 | Décima tercera y décima cuarta remuneración | CT arts. 111, 113 | | | | | Revisor Jurídico | |
+| L4 | Vacaciones anuales | CT art. 69 | | | | | Revisor Jurídico | |
+| L5 | Despido intempestivo | CT arts. 169, 188 | | | | | Revisor Jurídico | |
+| L6 | Desahucio y bonificación | CT arts. 184, 185 | | | | | Revisor Jurídico | |
+| L7 | Participación en utilidades | CT art. 97 | | | | | Revisor Jurídico | |
+| L-alt1 | Licencia por maternidad y paternidad (alternativa) | CT art. 152; CRE art. 332 | | | | | Revisor Jurídico | |
+| L-alt2 | Afiliación al IESS (alternativa) | CT art. 42 num. 31; CRE art. 34 | | | | | Revisor Jurídico | |
 
 ## D. Muestra de respuestas del asistente
 

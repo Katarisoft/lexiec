@@ -22,6 +22,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Plantilla de revisión para Revisor Jurídico en `docs/REVISION_JURIDICA.md`, sin aprobaciones registradas.
 
 - Propuesta de 7 temas de Derecho de Familia, más 2 alternativas, con localizadores y páginas de las copias de trabajo, pendiente de aprobación (`docs/FUENTES.md`, sección 7).
+- Propuesta de 7 temas de Derecho Laboral, más 2 alternativas, con localizadores y páginas en dos copias del Código del Trabajo, pendiente de aprobación (`docs/FUENTES.md`, sección 8).
 
 ### Cambiado
 
