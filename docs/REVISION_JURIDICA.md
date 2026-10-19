@@ -39,7 +39,23 @@ En E05, cada aprobación se registrará en el sistema con la cuenta de staff que
 
 ## C. Temas por área
 
-Se completará en E04b (Familia), E04c (Laboral) y E04d (Constitucional y Participación Ciudadana). Cada tema tendrá: pregunta ciudadana, documento, localizador (artículos), decisión, observaciones, revisor y fecha.
+Detalle de cada tema en [docs/FUENTES.md](FUENTES.md), sección 7 (Familia). Laboral y Constitucional se añadirán en E04c y E04d.
+
+Decisión: **Aprobado**, **Rechazado**, **Aprobado con cambios** (indicar cuáles) o **Requiere otra fuente**.
+
+### C.1 Derecho de Familia
+
+| ID | Tema | Localizadores propuestos | ¿Localizadores correctos y suficientes? | Fuente de texto autorizada para E05 | Decisión | Observaciones | Revisor | Fecha |
+|---|---|---|---|---|---|---|---|---|
+| F1 | Familia, matrimonio y capacidad para casarse | CRE art. 67; CC arts. 81, 83, 95 | | | | | Revisor Jurídico | |
+| F2 | Unión de hecho | CRE art. 68; CC arts. 222, 223 | | | | | Revisor Jurídico | |
+| F3 | Terminación del matrimonio y divorcio por mutuo consentimiento | CC arts. 105, 106, 107 | | | | | Revisor Jurídico | |
+| F4 | Causas de divorcio | CC art. 110 | | | | | Revisor Jurídico | |
+| F5 | Pensión de alimentos | CONA Libro II Tít. V, arts. innum. 1-5; CRE art. 69 | | | | | Revisor Jurídico | |
+| F6 | Patria potestad y tenencia | CONA arts. 105, 106, 118, 119 | | | | | Revisor Jurídico | |
+| F7 | Régimen de visitas | CONA arts. 122, 123, 124 | | | | | Revisor Jurídico | |
+| F-alt1 | Alimentos entre otros parientes (alternativa) | CC art. 349 | | | | | Revisor Jurídico | |
+| F-alt2 | Derechos de niñas, niños y adolescentes (alternativa) | CRE arts. 44, 45 | | | | | Revisor Jurídico | |
 
 ## D. Muestra de respuestas del asistente
 

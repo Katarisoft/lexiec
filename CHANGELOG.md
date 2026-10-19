@@ -21,6 +21,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Inventario auditable de 8 documentos oficiales candidatos en `docs/FUENTES.md` (URL, edición declarada, fecha de consulta, SHA-256, limitaciones y bloqueos) y prueba acotada de la API de GOB.EC.
 - Plantilla de revisión para Revisor Jurídico en `docs/REVISION_JURIDICA.md`, sin aprobaciones registradas.
 
+- Propuesta de 7 temas de Derecho de Familia, más 2 alternativas, con localizadores y páginas de las copias de trabajo, pendiente de aprobación (`docs/FUENTES.md`, sección 7).
+
 ### Cambiado
 
 - El backend carga `backend/.env` con `python-dotenv` 1.2.4, sin sobrescribir variables del entorno.
@@ -31,6 +33,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - `workflows/ci.yml`, que no estaba activo, sustituido por los workflows de `.github/workflows/`.
 
 ### Seguridad
+
+- Identificadas compilaciones de Ediciones Legales con «Prohibida su reproducción parcial o total» y de Lexis en dominios oficiales; su texto no se copiará a la base de datos sin decisión de Revisor Jurídico.
 
 - `.gitignore` ampliado para excluir `.env.*` (excepto `.env.example`), claves de firma, entornos virtuales y bases SQLite.
 - Eliminada la `SECRET_KEY` insegura que genera la plantilla de Django.

@@ -43,7 +43,7 @@ Cada documento tiene un identificador estable (D01…D08) para E04b–E05. Las �
 | Tipo | URL | Lo que consta en el documento | Págs. | SHA-256 |
 |---|---|---|---:|---|
 | A | https://esacc.corteconstitucional.gob.ec/storage/api/v1/10_DWL_FL/eyJjYXJwZXRhIjoicm8iLCJ1dWlkIjoiMDZmMTE3NmQtMGMxNC00OTNmLWFhZGYtMjQ0ZmQ0OWQ1OTVmLnBkZiJ9 | «REGISTRO OFICIAL — Año II — Quito, Lunes 20 de Octubre del 2008 — Nº449». Edición original. | 82 | `93a23b0ce6478432484a9e0f5d56effdd1153bf0f807fbaf6d0cb3e6d6822ebe` |
-| B | https://portal.compraspublicas.gob.ec/sercop/wp-content/uploads/2025/11/CONSTITUCION-DE-LA-REPUBLICA-DEL-ECUADOR.pdf | «Registro Oficial No. 449, 20 de Octubre 2008 — Normativa: Vigente — Última Reforma: Tercer Suplemento del Registro Oficial 568, 30-V-2024». Publicado por SERCOP en su sección de normativa; compilador no identificado en las páginas revisadas. | 164 | `d930a39feca3168b56991c0ee9ba2b487fd132e03488ed86fc342f7c9fe2d60e` |
+| B | https://portal.compraspublicas.gob.ec/sercop/wp-content/uploads/2025/11/CONSTITUCION-DE-LA-REPUBLICA-DEL-ECUADOR.pdf | «Registro Oficial No. 449, 20 de Octubre 2008 — Normativa: Vigente — Última Reforma: Tercer Suplemento del Registro Oficial 568, 30-V-2024». Publicado por SERCOP en su sección de normativa. **Compilación de Ediciones Legales**: cada página indica «Todos los derechos reservados. Prohibida su reproducción parcial o total». | 164 | `d930a39feca3168b56991c0ee9ba2b487fd132e03488ed86fc342f7c9fe2d60e` |
 | C | https://www.gob.ec/regulaciones/constitucion-republica-ecuador | Tipo «Carta Suprema»; emisora «Asamblea Constituyente»; «R. O. 449 Año 2008», 2008-10-20. Última reforma no indicada. PDF adjunto: `constitucion_de_bolsillo.pdf` (subido en 2018-11; edición no identificada). | 218 | `9514ad12240826c650d8ba75f3164f0ca22af389aa291e2fa227fb02294d85c2` |
 
 Limitaciones: la edición A no contiene reformas posteriores a 2008. La B declara una reforma de 2024 que no se ha cotejado con su edición del Registro Oficial. No se identificó la fecha de la edición «de bolsillo» de GOB.EC.
@@ -54,7 +54,7 @@ Limitaciones: la edición A no contiene reformas posteriores a 2008. La B declar
 
 | Tipo | URL | Lo que consta en el documento | Págs. | SHA-256 |
 |---|---|---|---:|---|
-| C + PDF | https://www.gob.ec/regulaciones/codigo-civil-codificacion-no-2005-010 — PDF: https://www.gob.ec/sites/default/files/regulations/2025-09/Documento_C%C3%B3digo-Civil-2025.pdf | Ficha: tipo «Ley orgánica»; emisora «Congreso Nacional»; «R.O. 46»; fecha de publicación **2005-01-24**; última reforma «Segundo Suplemento del Registro Oficial 61, 17-VI-2025». PDF: «Suplemento del Registro Oficial No. 46, **24 de Junio 2005** — Normativa: Vigente — Última Reforma: Segundo Suplemento del Registro Oficial 61, 17-VI-2025». | 392 | `7c4c66f757ed05ded44bf321a58c2977a385e62e68a1a9b9d33303d1481c8fd8` |
+| C + PDF | https://www.gob.ec/regulaciones/codigo-civil-codificacion-no-2005-010 — PDF: https://www.gob.ec/sites/default/files/regulations/2025-09/Documento_C%C3%B3digo-Civil-2025.pdf | Ficha: tipo «Ley orgánica»; emisora «Congreso Nacional»; «R.O. 46»; fecha de publicación **2005-01-24**; última reforma «Segundo Suplemento del Registro Oficial 61, 17-VI-2025». PDF: «Suplemento del Registro Oficial No. 46, **24 de Junio 2005** — Normativa: Vigente — Última Reforma: Segundo Suplemento del Registro Oficial 61, 17-VI-2025». **Compilación de Ediciones Legales** con el aviso «Prohibida su reproducción parcial o total» en cada página. | 392 | `7c4c66f757ed05ded44bf321a58c2977a385e62e68a1a9b9d33303d1481c8fd8` |
 
 Limitaciones: la fecha de publicación de la ficha (enero) no coincide con la del PDF (junio). No se localizó la edición A original (R.O. Suplemento 46) ni la de la reforma de 2025.
 
@@ -64,7 +64,7 @@ Limitaciones: la fecha de publicación de la ficha (enero) no coincide con la de
 
 | Tipo | URL | Lo que consta en el documento | Págs. | SHA-256 |
 |---|---|---|---:|---|
-| C + PDF | https://www.gob.ec/regulaciones/codigo-ninez-adolescencia — PDF: https://www.gob.ec/sites/default/files/regulations/2018-09/Documento_C%C3%B3digo-Ni%C3%B1ez-Adolescencia.pdf | Ficha: tipo «Código Orgánico»; emisora «Asamblea Nacional»; «R.O. 737, año 2017», 2017-05-31. PDF: «Ley 100 — Registro Oficial 737 de 03-ene.-2003 — Ultima modificación: 31-may.-2017 — Estado: Reformado». | 115 | `8f4e8694bcbe9b6bc9957e3bbe40f951fb321b6340120ff07119fb70959542c0` |
+| C + PDF | https://www.gob.ec/regulaciones/codigo-ninez-adolescencia — PDF: https://www.gob.ec/sites/default/files/regulations/2018-09/Documento_C%C3%B3digo-Ni%C3%B1ez-Adolescencia.pdf | Ficha: tipo «Código Orgánico»; emisora «Asamblea Nacional»; «R.O. 737, año 2017», 2017-05-31. PDF: «Ley 100 — Registro Oficial 737 de 03-ene.-2003 — Ultima modificación: 31-may.-2017 — Estado: Reformado». Compilación de **Lexis** (pie «LEXIS FINDER - www.lexis.com.ec»). | 115 | `8f4e8694bcbe9b6bc9957e3bbe40f951fb321b6340120ff07119fb70959542c0` |
 
 **BLOQUEO:** no se encontró en un dominio oficial un texto con reformas posteriores a 2017.
 - Copias de terceros (excluidas) mencionan una reforma en el Suplemento del R.O. 279, 29-III-2023: **no verificado**.
@@ -78,7 +78,7 @@ Limitaciones: la fecha de publicación de la ficha (enero) no coincide con la de
 | Tipo | URL | Lo que consta en el documento | Págs. | SHA-256 |
 |---|---|---|---:|---|
 | B | https://portal.compraspublicas.gob.ec/sercop/wp-content/uploads/2026/08/CODIGO-DEL-TRABAJO.pdf | «TIPO NORMA: Codificación — NÚMERO DE NORMA: 17 — FECHA DE PUBLICACIÓN: 2005-12-16 — Registro Oficial Suplemento — NÚMERO DE PUBLICACIÓN: 167 — ESTADO: Reformado — ÚLTIMA REFORMA: 2026-04-09». Compilador no identificado. | 159 | `94d87989023bb40b456319aba9f6c7f72426232c9e5f62c07ae120dc3739a84d` |
-| B | https://www.trabajo.gob.ec/wp-content/uploads/2024/01/CODIGO_DEL_TRABAJO-CT.pdf | Ministerio del Trabajo. «Suplemento del Registro Oficial No. 167, 16 de Diciembre 2005 — Normativa: Vigente — Última Reforma: Suplemento del Registro Oficial 309, 12-V-2023». | 199 | `0f41bb82933e6795ac4d42438a76f2d0947e6c9dab77c85551b899ab058160c2` |
+| B | https://www.trabajo.gob.ec/wp-content/uploads/2024/01/CODIGO_DEL_TRABAJO-CT.pdf | Ministerio del Trabajo. «Suplemento del Registro Oficial No. 167, 16 de Diciembre 2005 — Normativa: Vigente — Última Reforma: Suplemento del Registro Oficial 309, 12-V-2023». **Compilación de Ediciones Legales** con el aviso «Prohibida su reproducción parcial o total». | 199 | `0f41bb82933e6795ac4d42438a76f2d0947e6c9dab77c85551b899ab058160c2` |
 | B | https://esacc.corteconstitucional.gob.ec/storage/api/v1/10_DWL_FL/e2NhcnBldGE6ICJub3RhaXAyMDIzIiwgdXVpZDoiZWU0MDUzZmYtYzFjOS00YjU4LThkMTItYTRlZTRlM2RkZjMyLnBkZiJ9 | Repositorio de la Corte Constitucional. «Bajado 30 abr 2022 — Normativa: Vigente — Última Reforma: Segundo Suplemento del Registro Oficial 44, 18-IV-2022». | 184 | `b20b8420677afe406791419e585becd0f9d5105207d80d3a8c23a9aa4d50ca38` |
 | C | https://www.gob.ec/regulaciones/codigo-trabajo | Ficha: tipo «Ley ordinaria»; emisora «Asamblea Nacional»; «R.O. 167 Año 2005», 2005-12-16. Última reforma no indicada. PDF adjunto subido en 2018-10 (no descargado). | — | — |
 
@@ -90,7 +90,7 @@ Limitaciones: las tres copias B declaran últimas reformas distintas (2022, 2023
 
 | Tipo | URL | Lo que consta en el documento | Págs. | SHA-256 |
 |---|---|---|---:|---|
-| C + PDF | https://www.gob.ec/regulaciones/ley-organica-participacion-ciudadana — PDF: https://www.gob.ec/sites/default/files/regulations/2018-09/Documento_Ley-Org%C3%A1nica-Participaci%C3%B3n-Ciudadana.pdf | Ficha: tipo «Ley orgánica»; emisora «Presidencia de la República del Ecuador» (así consta); «R.O 175, Año 2010», 2010-04-20. PDF: «Registro Oficial Suplemento 175 de 20-abr.-2010 — Ultima modificación: 11-may.-2011 — Estado: Vigente». | 31 | `74c6615070c3182771beb47f7e988ee0ba95ac2df17d43168c0c1b56a948c843` |
+| C + PDF | https://www.gob.ec/regulaciones/ley-organica-participacion-ciudadana — PDF: https://www.gob.ec/sites/default/files/regulations/2018-09/Documento_Ley-Org%C3%A1nica-Participaci%C3%B3n-Ciudadana.pdf | Ficha: tipo «Ley orgánica»; emisora «Presidencia de la República del Ecuador» (así consta); «R.O 175, Año 2010», 2010-04-20. PDF: «Registro Oficial Suplemento 175 de 20-abr.-2010 — Ultima modificación: 11-may.-2011 — Estado: Vigente». Compilación de **Lexis**. | 31 | `74c6615070c3182771beb47f7e988ee0ba95ac2df17d43168c0c1b56a948c843` |
 
 **BLOQUEO:** el único texto oficial disponible es de 2011.
 - Varias referencias, ninguna verificada en el Registro Oficial, indican una ley reformatoria publicada en el Cuarto Suplemento del R.O. 584, 21-VI-2024. No se localizó esa edición.
@@ -157,7 +157,11 @@ Conclusión: la API sirve como pista complementaria para localizar fichas y PDF,
 - **Registro Oficial** (https://www.registroficial.gob.ec/): la portada revisada no muestra condiciones de uso ni de redistribución.
 - **GOB.EC:** licencia Creative Commons Atribución (versión incoherente, ver arriba).
 - **SERCOP, Ministerio del Trabajo, Corte Constitucional y Casa de la Cultura:** en las páginas revisadas no consta ninguna licencia para los PDF.
-- **Compilaciones privadas:** algunas copias B pueden ser compilaciones editoriales con notas propias. Solo deben extraerse fragmentos del texto normativo, no las notas del compilador.
+- **Compilaciones privadas (actualizado en E04b):** varias copias alojadas en dominios oficiales son compilaciones editoriales.
+  - **Ediciones Legales**, con «Todos los derechos reservados. Prohibida su reproducción parcial o total» en cada página: D01-B (SERCOP), D02 (GOB.EC) y D04-B (Ministerio del Trabajo).
+  - **Lexis**, con el pie «LEXIS FINDER»: D03 y D05 (GOB.EC).
+  - Mientras Revisor Jurídico no confirme el régimen aplicable (P-02), **no se copiará texto de esas compilaciones a la base de datos**. En E05 los fragmentos deben tomarse de ediciones del Registro Oficial (tipo A) o de copias sin aviso restrictivo, y servir esas compilaciones solo para localizar artículos.
+  - Las copias de SERCOP 2026 (D04, D08), de la Corte Constitucional (D04, 2022) y de GOB.EC para D06 no muestran marca de compilador ni aviso restrictivo en su texto.
 
 **PENDIENTE (Revisor Jurídico):** confirmar el régimen aplicable a la reproducción de textos normativos en Ecuador y la atribución adecuada antes de E05. Este inventario no afirma que los textos sean libremente redistribuibles.
 
@@ -184,3 +188,77 @@ Conclusión: la API sirve como pista complementaria para localizar fichas y PDF,
 | `text_hash` | Hash del texto incorporado en E05 (distinto del hash del PDF registrado aquí). |
 | `validity_status` | «No comprobada» salvo evidencia aportada por Revisor Jurídico. |
 | `limitations` | Limitaciones de esta sección. |
+
+## 7. Temas propuestos — Derecho de Familia (E04b)
+
+Fecha de elaboración: 2026-10-16. **Todos los temas están PENDIENTES DE APROBACIÓN** por Revisor Jurídico. Los localizadores se identificaron en las copias de trabajo indicadas; el texto no se ha cotejado con el Registro Oficial y no se transcribe aquí.
+
+Abreviaturas de copias de trabajo y páginas del PDF:
+- **CRE-A:** D01 tipo A, R.O. 449 original.
+- **CRE-B:** D01 tipo B, SERCOP / Ediciones Legales.
+- **CC:** D02, PDF de GOB.EC / Ediciones Legales (2025).
+- **CONA:** D03, PDF de GOB.EC / Lexis, «Ultima modificación: 31-may.-2017».
+
+### Resumen
+
+| ID | Pregunta ciudadana | Documento y localizador | Disponibilidad de texto reproducible | Estado |
+|---|---|---|---|---|
+| F1 | ¿Qué reconoce la ley como familia y matrimonio, y quiénes pueden casarse? | D01 art. 67; D02 arts. 81, 83 y 95 | Art. 67: tipo A disponible. Arts. del CC: solo compilación con reproducción prohibida | Pendiente de aprobación |
+| F2 | ¿Cuándo existe una unión de hecho y qué derechos genera? | D01 art. 68; D02 arts. 222 y 223 | Art. 68: tipo A. CC: igual que F1 | Pendiente de aprobación |
+| F3 | ¿Cómo termina un matrimonio y qué es el divorcio por mutuo consentimiento? | D02 arts. 105, 106 y 107 | Igual que F1; el procedimiento remite al COGEP (no inventariado) | Pendiente de aprobación |
+| F4 | ¿Cuáles son las causas de divorcio? | D02 art. 110 | Igual que F1 | Pendiente de aprobación |
+| F5 | ¿Quién tiene derecho a pensión de alimentos y quién debe pagarla? | D03 Libro II, Título V, arts. innumerados 1 a 5; D01 art. 69 | **Bloqueo B-01**: solo texto de 2017 (Lexis). Art. 69: tipo A | Pendiente de aprobación |
+| F6 | ¿Qué son la patria potestad y la tenencia, y cómo se decide? | D03 arts. 105, 106, 118 y 119 | **Bloqueo B-01** y pista no verificada sobre la sentencia 28-15-IN/21 (art. 106) | Pendiente de aprobación |
+| F7 | ¿Cómo se regula el régimen de visitas? | D03 arts. 122, 123 y 124 | **Bloqueo B-01** | Pendiente de aprobación |
+
+Alternativas si se rechaza algún tema:
+- **F-alt1:** alimentos entre otros parientes (D02 art. 349; CC pág. 54).
+- **F-alt2:** derechos de niñas, niños y adolescentes (D01 arts. 44 y 45; CRE-A pág. 15).
+
+### Detalle por tema
+
+**F1 — Familia, matrimonio y capacidad para casarse**
+- Localizadores:
+  - D01 art. 67 (CRE-A pág. 20; CRE-B pág. 27);
+  - D02 art. 81 (CC pág. 16), art. 83 (pág. 17) y art. 95 (pág. 18).
+- Notas del compilador:
+  - art. 81 «Sustituido por la Sentencia 10-18-CN/19, R.O. E.C. 96, 8-VII-2019»;
+  - arts. 83 y 95 «Sustituido por … Ley s/n, R.O. 526-2S, 19-VI-2015».
+- Ediciones A que habría que localizar: R.O. Edición Constitucional 96 (2019) y R.O. 526-2S (2015).
+- Riesgo: confundir el texto original de 2005 con el reformado.
+
+**F2 — Unión de hecho**
+- Localizadores: D01 art. 68 (CRE-A pág. 21; CRE-B pág. 27); D02 arts. 222 y 223 (CC pág. 38, Título VI «De las uniones de hecho»).
+- Nota del compilador: ambos artículos del CC «Sustituido por … Ley s/n, R.O. 526-2S, 19-VI-2015».
+- Limitación: la formalización ante la autoridad competente y el registro dependen de normas no inventariadas.
+
+**F3 — Terminación del matrimonio y divorcio por mutuo consentimiento**
+- Localizadores: D02 arts. 105, 106 y 107 (CC pág. 20).
+- Nota del compilador: art. 107 «Sustituido por el num. 2 de la Disposición Reformatoria Quinta del Código s/n, R.O. 506-S, 22-V-2015»; remite el procedimiento al Código Orgánico General de Procesos.
+- Limitación: el procedimiento (judicial o, en su caso, notarial) no está en D01–D08. Si se aprueba, la ficha solo explicará la regla sustantiva o habrá que inventariar el COGEP.
+
+**F4 — Causas de divorcio**
+- Localizador: D02 art. 110 (CC pág. 21).
+- Nota del compilador: «Sustituido por el Art. 11 de la Ley s/n, R.O. 526-2S, 19-VI-2015».
+- Riesgo: temas de violencia intrafamiliar; la ficha debe remitir a ayuda profesional y no orientar casos concretos.
+
+**F5 — Pensión de alimentos**
+- Localizadores: D03 Libro II, Título V «Del derecho a alimentos» (CONA pág. 32), arts. innumerados 1 a 5 (en la compilación aparecen numerados 1 a 5; «Titulares» y «Obligados» en pág. 33); D01 art. 69 (CRE-A pág. 21).
+- Nota del compilador: título sustituido por Ley publicada en el R.O. Suplemento 643, 28-VII-2009.
+- **Riesgo alto:** el texto disponible es de 2017. En la propia compilación aparecen artículos duplicados (24 y 25) y el art. 22 «Apremio personal» sin texto. No se proponen temas sobre apremio ni sobre montos de la tabla de pensiones.
+
+**F6 — Patria potestad y tenencia**
+- Localizadores: D03 arts. 105 y 106 (CONA pág. 27), arts. 118 y 119 (pág. 31).
+- **Riesgo alto:** bloqueo B-01. Además, hay una pista no verificada sobre la sentencia 28-15-IN/21 que habría declarado inconstitucionales partes del art. 106, y un proyecto de reforma aprobado en comisión (2026-08-26) que no es ley. No publicar sin confirmación de Revisor Jurídico.
+
+**F7 — Régimen de visitas**
+- Localizadores: D03 arts. 122, 123 y 124 (CONA págs. 31-32).
+- Riesgo: bloqueo B-01.
+
+### Conclusión para Familia
+
+- Solo hay texto de tipo A (reproducible, sujeto a P-02) para los artículos constitucionales (67, 68 y 69).
+- Los artículos del Código Civil requieren localizar las ediciones del R.O. de 2015 y 2019 citadas, o que Revisor Jurídico autorice otra fuente.
+- F5–F7 dependen de resolver B-01.
+
+Ninguna ficha de Familia puede alcanzar el estado «publicable» en E05 sin esas decisiones.
