@@ -40,6 +40,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Favoritos y notas locales con Hive (hive_ce), separados por cuenta, persistentes tras reiniciar y disponibles sin conexión como copia guardada con fecha; borrado explícito de los datos locales de la cuenta.
 - App `assistant`: `Consultation` y `ConsultationCitation`, historial privado (`GET`/`DELETE /api/v1/consultations/`) filtrado por propietario, y servicio de registro idempotente que valida las citas sin depender del proveedor de IA.
 - Recuperación de fragmentos para el asistente: área obligatoria, solo contenido revisado y publicado, búsqueda de texto completo en español sin tildes, términos controlados, cobertura mínima configurable y contexto acotado; abstención sin llamar al proveedor (`docs/RECUPERACION.md`).
+- Control de presupuesto de IA: registro `AIUsage` sin texto de consultas, reserva del coste máximo antes de cada llamada con bloqueo de PostgreSQL, conciliación, estado incierto que sigue contando, liberación solo si no se envió, límite diario por cuenta y comando `ai_budget` (`docs/PRESUPUESTO.md`).
 
 ### Cambiado
 
@@ -57,6 +58,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 ### Seguridad
 
+- El presupuesto de IA falla de forma cerrada si faltan tarifas o la configuración es incoherente; corte operativo de USD 8 sobre USD 10.
 - Las consultas de otras cuentas responden 404 (no revelan su existencia); el borrado elimina la pregunta, la respuesta y las citas.
 - HTTP sin cifrar permitido solo en el manifiesto de depuración de Android; el release exige HTTPS. Permiso `INTERNET` declarado en el manifiesto principal.
 - Permisos por objeto en comentarios; autor y ficha asignados en el servidor; el correo de las cuentas no se expone a otras cuentas.

@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) pantallas de autenticación (E09b, aceptada) biblioteca móvil con fuentes (E10, aceptada; probada con datos DEMO ficticios porque la colección real depende de la revisión jurídica) comentarios móviles con prueba A/B en dispositivo (E11, aceptada) favoritos y notas locales por cuenta (E12, aceptada) historial privado de consultas en el backend (E13, aceptada) y recuperación documental sin proveedor (E14, pendiente de revisión; evaluación real pendiente de la colección revisada). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) pantallas de autenticación (E09b, aceptada) biblioteca móvil con fuentes (E10, aceptada; probada con datos DEMO ficticios porque la colección real depende de la revisión jurídica) comentarios móviles con prueba A/B en dispositivo (E11, aceptada) favoritos y notas locales por cuenta (E12, aceptada) historial privado de consultas en el backend (E13, aceptada) recuperación documental sin proveedor (E14, aceptada; evaluación real pendiente de la colección revisada) y control de presupuesto de IA sin llamadas reales (E15, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -102,6 +102,11 @@ Variables implementadas (leídas por `backend/config/settings.py`):
 | `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST`, `POSTGRES_PORT` | Solo servidor | Conexión PostgreSQL (por defecto `lexiec`, `localhost`, `5432`). Si la contraseña está vacía, libpq puede tomarla de `~/.pgpass`. |
 | `DJANGO_ENV_FILE` | Servidor | Ruta alternativa del archivo de variables (opcional). |
 | `API_THROTTLE_LOGIN`, `API_THROTTLE_REGISTER` | Servidor | Límites de intentos por IP (por defecto `10/min` y `5/hour`). |
+| `ASSISTANT_MODEL` | Servidor | Modelo de Claude (por defecto `claude-haiku-5-5`, decisión del propietario). |
+| `ASSISTANT_PRICE_INPUT_PER_MTOK`, `ASSISTANT_PRICE_OUTPUT_PER_MTOK` | Servidor | Tarifas en USD por millón de tokens. **Obligatorias**: sin ellas no se reserva ni se llama. |
+| `ASSISTANT_MAX_INPUT_TOKENS`, `ASSISTANT_MAX_OUTPUT_TOKENS`, `ASSISTANT_PRICE_TIER_INPUT_LIMIT` | Servidor | Límites por llamada y tramo de precio (8000 / 1024 / 100000). |
+| `ASSISTANT_DAILY_LIMIT_PER_USER` | Servidor | Consultas por cuenta cada 24 horas (10). |
+| `AI_BUDGET_USD`, `AI_OPERATING_LIMIT_USD` | Servidor | Presupuesto global (10) y corte operativo (8). Ver `docs/PRESUPUESTO.md`. |
 | `ASSISTANT_MIN_COVERAGE` | Servidor | Cobertura mínima de palabras clave para considerar respaldo (por defecto `0.5`, provisional; ver `docs/RECUPERACION.md`). |
 
 Variables propuestas, todavía no implementadas:
@@ -109,9 +114,6 @@ Variables propuestas, todavía no implementadas:
 | Variable propuesta | Ubicación | Finalidad |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | Solo servidor | Acceso al proveedor de IA. |
-| `ANTHROPIC_MODEL` | Servidor | Modelo compatible elegido. |
-| `AI_BUDGET_USD` | Servidor | Presupuesto global configurado. |
-| `AI_OPERATING_LIMIT_USD` | Servidor | Corte conservador antes del límite global. |
 | `API_BASE_URL` | Flutter, configuración pública | URL de Django; no es una credencial. |
 
 PENDIENTE: variables de producción y quién configura los valores en el VPS. No adjuntar `.env`, claves de firma Android ni contraseñas al repositorio.
@@ -266,7 +268,7 @@ Presupuesto aprobado de API: hasta USD 10 para desarrollo y evaluación. Corte o
 
 Controles previstos: límites de entrada/salida, cuotas por usuario, reservas concurrentes, conciliación del consumo y ausencia de reintentos de pago automáticos. El ledger interno estima consumo y debe contrastarse con la facturación del proveedor.
 
-PENDIENTE: modelo, tarifas verificadas, cuotas finales y estado de implementación de los controles. No prometer un tope de factura garantizado solo por el ledger de la aplicación.
+Modelo elegido: Claude Haiku 5.5. Control implementado en E15 (reservas concurrentes, conciliación, incertidumbre, cuota diaria por cuenta y fallo cerrado sin tarifas); ver [docs/PRESUPUESTO.md](docs/PRESUPUESTO.md). PENDIENTE: configurar y verificar las tarifas en el servidor, y conectar el proveedor (E16). El registro interno es una estimación que debe contrastarse con la Console; no garantiza por sí solo el importe de la factura.
 
 ## APK y Release
 
@@ -369,7 +371,7 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E14 sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E15 sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
@@ -378,7 +380,7 @@ Resultados locales del 2026-10-19 (cambios de E14 sin commit, sin Docker):
 | `flutter test` | 99 pruebas superadas (favoritos y notas: Hive real con reinicio y aislamiento por cuenta, cambio de cuenta en pantallas; comentarios: publicar, editar, borrar, A/B y conservación de texto; configuración; errores HTTP y de red; renovación única ante 401; autenticación; biblioteca: estados carga/vacío/error, búsqueda, paginación, detalle con fuentes y enlaces; regla de pantallas sin HTTP) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
-| `manage.py test --noinput` (PostgreSQL 16 local) | 137 pruebas superadas (recuperación: área obligatoria, tildes, raíces, términos controlados, abstención; historial privado A/B, validación de citas e idempotencia; configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
+| `manage.py test --noinput` (PostgreSQL 16 local) | 151 pruebas superadas (presupuesto: fallo cerrado, reservas concurrentes con hilos, incertidumbre y cuota; recuperación: área obligatoria, tildes, raíces, términos controlados, abstención; historial privado A/B, validación de citas e idempotencia; configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
 
 CI en GitHub Actions: `.github/workflows/ci-mobile.yml` y `.github/workflows/ci-backend.yml`, este último con PostgreSQL 16 efímero. PENDIENTE: ejecución remota no confirmada, porque el repositorio aún no tiene remoto.
 

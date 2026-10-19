@@ -112,3 +112,72 @@ class ConsultationCitation(models.Model):
 
     def __str__(self):
         return f'{self.document_title} — {self.locator}'
+
+
+class UsagePurpose(models.TextChoices):
+    CONSULTATION = 'consultation', 'Consulta de la app'
+    EVALUATION = 'evaluation', 'Evaluación (E18)'
+    MANUAL = 'manual', 'Uso manual externo (Console u otros)'
+
+
+class UsageStatus(models.TextChoices):
+    RESERVED = 'reserved', 'Reservado (llamada en curso)'
+    RECONCILED = 'reconciled', 'Conciliado con consumo informado'
+    UNCERTAIN = 'uncertain', 'Incierto (consumo desconocido)'
+    RELEASED = 'released', 'Liberado (la llamada no llegó a enviarse)'
+
+
+class AIUsage(models.Model):
+    """Registro de consumo estimado de la API de pago.
+
+    No guarda texto de preguntas ni respuestas. Sobrevive al borrado de la
+    consulta y de la cuenta para que el presupuesto no se «recupere».
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='cuenta',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    consultation = models.ForeignKey(
+        Consultation,
+        verbose_name='consulta',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    purpose = models.CharField('propósito', max_length=16, choices=UsagePurpose.choices)
+    status = models.CharField('estado', max_length=16, choices=UsageStatus.choices)
+    model_name = models.CharField('modelo', max_length=64, blank=True)
+    reserved_usd = models.DecimalField('reservado (USD)', max_digits=10, decimal_places=6)
+    actual_usd = models.DecimalField(
+        'consumo conciliado (USD)', max_digits=10, decimal_places=6, null=True, blank=True
+    )
+    input_tokens = models.PositiveIntegerField('tokens de entrada', null=True, blank=True)
+    output_tokens = models.PositiveIntegerField('tokens de salida', null=True, blank=True)
+    note = models.CharField(
+        'nota técnica', max_length=200, blank=True, help_text='Sin datos personales ni texto de consultas.'
+    )
+    created_at = models.DateTimeField('creado', auto_now_add=True)
+    resolved_at = models.DateTimeField('resuelto', null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_at', '-id']
+        verbose_name = 'consumo de IA'
+        verbose_name_plural = 'consumos de IA'
+        constraints = [
+            models.CheckConstraint(
+                condition=Q(reserved_usd__gte=0), name='aiusage_reserved_non_negative'
+            ),
+            models.CheckConstraint(
+                condition=~Q(status=UsageStatus.RECONCILED) | Q(actual_usd__isnull=False),
+                name='aiusage_reconciled_requires_actual',
+            ),
+        ]
+
+    def __str__(self):
+        return f'Consumo {self.pk} ({self.get_status_display()})'
