@@ -1,6 +1,6 @@
 # API de LexiEC — v1
 
-Estado: implementado en el backend hasta E13 (autenticación, biblioteca, comentarios e historial privado). La creación de consultas con IA se documentará en E16/E17.
+Estado: implementado en el backend hasta E16 (autenticación, biblioteca, comentarios, historial privado y consultas al asistente con dobles de prueba; sin llamadas reales todavía).
 
 - **Base:** `/api/v1/`.
 - **Formato:** JSON en peticiones y respuestas. Otros tipos de contenido reciben 415.
@@ -150,8 +150,15 @@ Opiniones de la comunidad sobre fichas publicadas. **No son fuente normativa** n
 | `GET consultations/?page=<n>` | 200 paginado (20), solo consultas propias, de la más reciente a la más antigua: `{"id", "area": {"slug", "name"}, "question", "status", "status_label", "created_at"}` |
 | `GET consultations/{id}/` | 200 con lo anterior más `answer`, `limitations`, `error_code` y `citations` (`fragment`, `locator`, `document_title`, `official_url`, `quoted_text`). **404** si la consulta no existe o es de otra cuenta |
 | `DELETE consultations/{id}/` | 204. Borra la pregunta, la respuesta y las citas. **404** si es de otra cuenta |
-| `POST consultations/` | 405 hasta E16/E17 (creación con el asistente) |
+| `POST consultations/` | Petición `{"area": "<slug>", "question": "…", "client_request_id": "<uuid>"}`. **201** con el detalle si se creó y **200** si ese identificador ya existía (misma consulta, sin nuevo cobro). Errores: 400 (validación), 409 `request_id_conflict` (identificador reutilizado con otra pregunta), 422 `unknown_area`, 429 `user_quota_exceeded` / `budget_exhausted` / `throttled` (5/min), 503 `assistant_unavailable` (faltan clave o tarifas; nunca se simula) |
 
+- **Flujo del `POST`:**
+  1. Recupera los fragmentos; si no hay respaldo, se abstiene sin llamar al proveedor ni cobrar.
+  2. Reserva el presupuesto.
+  3. Llama una sola vez a Claude (sin reintentos).
+  4. Concilia el consumo y guarda la consulta.
+
+  Un timeout o un error del proveedor se guarda como `error` con `error_code`, sin respuesta. Ante un timeout no se reenvía automáticamente; la app debe reutilizar el mismo `client_request_id` si la persona decide reintentar.
 - **Estados:**
   - `answered`: respondida con respaldo; siempre lleva al menos una cita;
   - `no_support`: sin respaldo suficiente; sin respuesta inventada ni citas;

@@ -41,6 +41,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - App `assistant`: `Consultation` y `ConsultationCitation`, historial privado (`GET`/`DELETE /api/v1/consultations/`) filtrado por propietario, y servicio de registro idempotente que valida las citas sin depender del proveedor de IA.
 - Recuperación de fragmentos para el asistente: área obligatoria, solo contenido revisado y publicado, búsqueda de texto completo en español sin tildes, términos controlados, cobertura mínima configurable y contexto acotado; abstención sin llamar al proveedor (`docs/RECUPERACION.md`).
 - Control de presupuesto de IA: registro `AIUsage` sin texto de consultas, reserva del coste máximo antes de cada llamada con bloqueo de PostgreSQL, conciliación, estado incierto que sigue contando, liberación solo si no se envió, límite diario por cuenta y comando `ai_budget` (`docs/PRESUPUESTO.md`).
+- Adaptador de Claude (`anthropic` 1.15.0, sin reintentos ni herramientas) con documentos citables, abstención con marcador, rechazo de afirmaciones sin citas o con citas inválidas, y clasificación de errores para el presupuesto.
+- `POST /api/v1/consultations/`: consulta completa con recuperación, presupuesto, idempotencia (también concurrente) y errores 409, 422, 429 y 503.
 
 ### Cambiado
 
@@ -58,6 +60,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 ### Seguridad
 
+- La clave de Anthropic solo se lee del entorno del servidor; sin ella el asistente responde 503 y nunca usa respuestas simuladas.
 - El presupuesto de IA falla de forma cerrada si faltan tarifas o la configuración es incoherente; corte operativo de USD 8 sobre USD 10.
 - Las consultas de otras cuentas responden 404 (no revelan su existencia); el borrado elimina la pregunta, la respuesta y las citas.
 - HTTP sin cifrar permitido solo en el manifiesto de depuración de Android; el release exige HTTPS. Permiso `INTERNET` declarado en el manifiesto principal.

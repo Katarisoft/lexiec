@@ -206,10 +206,13 @@ class ConsultationApiTests(ConsultationTestCase):
         # Los fragmentos citados no se borran.
         self.assertTrue(SourceFragment.objects.filter(pk=self.fragment.pk).exists())
 
-    def test_creation_and_edition_are_not_exposed_yet(self):
+    def test_consultations_cannot_be_edited(self):
+        # La creación (POST) llegó en E16 y se prueba en test_assistant_flow.
         client = self.client_for(self.user_a)
         consultation = self.record(self.user_a)
-        self.assertEqual(client.post(self.list_url, {}, format='json').status_code, 405)
         self.assertEqual(
             client.patch(self.detail_url(consultation), {}, format='json').status_code, 405
+        )
+        self.assertEqual(
+            client.put(self.detail_url(consultation), {}, format='json').status_code, 405
         )

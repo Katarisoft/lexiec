@@ -105,6 +105,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'login': os.environ.get('API_THROTTLE_LOGIN', '10/min'),
         'register': os.environ.get('API_THROTTLE_REGISTER', '5/hour'),
+        'consultation': os.environ.get('API_THROTTLE_CONSULTATION', '5/min'),
     },
 }
 
@@ -121,7 +122,12 @@ ASSISTANT_PRICE_OUTPUT_PER_MTOK = os.environ.get('ASSISTANT_PRICE_OUTPUT_PER_MTO
 # Tramo de precio: por encima de este tamaño de prompt la tarifa cambia.
 ASSISTANT_PRICE_TIER_INPUT_LIMIT = int(os.environ.get('ASSISTANT_PRICE_TIER_INPUT_LIMIT', '100000'))
 ASSISTANT_MAX_INPUT_TOKENS = int(os.environ.get('ASSISTANT_MAX_INPUT_TOKENS', '8000'))
-ASSISTANT_MAX_OUTPUT_TOKENS = int(os.environ.get('ASSISTANT_MAX_OUTPUT_TOKENS', '1024'))
+ASSISTANT_MAX_OUTPUT_TOKENS = int(os.environ.get('ASSISTANT_MAX_OUTPUT_TOKENS', '2048'))
+# Proveedor (E16): solo Anthropic; la clave ANTHROPIC_API_KEY se lee del
+# entorno del servidor y nunca se versiona ni se envía a la app móvil.
+ASSISTANT_PROVIDER = os.environ.get('ASSISTANT_PROVIDER', 'anthropic')
+ASSISTANT_EFFORT = os.environ.get('ASSISTANT_EFFORT', 'low')
+ASSISTANT_TIMEOUT_SECONDS = float(os.environ.get('ASSISTANT_TIMEOUT_SECONDS', '30'))
 ASSISTANT_DAILY_LIMIT_PER_USER = int(os.environ.get('ASSISTANT_DAILY_LIMIT_PER_USER', '10'))
 AI_BUDGET_USD = os.environ.get('AI_BUDGET_USD', '10')
 AI_OPERATING_LIMIT_USD = os.environ.get('AI_OPERATING_LIMIT_USD', '8')

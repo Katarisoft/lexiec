@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from apps.library.serializers import AreaSummarySerializer
 
-from .models import Consultation, ConsultationCitation
+from .models import QUESTION_MAX_LENGTH, Consultation, ConsultationCitation
 
 
 class CitationSerializer(serializers.ModelSerializer):
@@ -30,3 +30,9 @@ class ConsultationDetailSerializer(ConsultationListSerializer):
             'error_code',
             'citations',
         )
+
+
+class ConsultationCreateSerializer(serializers.Serializer):
+    area = serializers.SlugField(max_length=64)
+    question = serializers.CharField(max_length=QUESTION_MAX_LENGTH)
+    client_request_id = serializers.UUIDField()
