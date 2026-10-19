@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Necesario en release para conectar con el backend por HTTPS. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="LexiEC"
         android:name="${applicationName}"

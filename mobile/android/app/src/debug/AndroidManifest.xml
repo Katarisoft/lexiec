@@ -4,4 +4,7 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Solo en depuración: permite HTTP sin cifrar hacia el backend local.
+         Los builds de release no incluyen este manifiesto y exigen HTTPS. -->
+    <application android:usesCleartextTraffic="true"/>
 </manifest>

@@ -97,7 +97,11 @@ class AuthController extends GetxController {
   void _setFailure(ApiFailure failure) {
     lastFailure.value = failure;
     errorMessage.value = failure.message;
-    fieldErrors.assignAll(failure.fieldErrors);
+    // Se copian los valores: assignAll adoptaría el mapa recibido, que puede
+    // ser constante, y el siguiente clear() fallaría.
+    fieldErrors
+      ..clear()
+      ..addAll(failure.fieldErrors);
   }
 
   void _clearErrors() {

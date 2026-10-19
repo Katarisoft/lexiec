@@ -32,6 +32,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Perfil de cuenta con alias público opcional (`display_name`) en el registro y en `PATCH /api/v1/auth/me/`.
 - Núcleo móvil: configuración de `API_BASE_URL`, cliente Dio con renovación única de sesión ante 401, errores tipados según `docs/API.md`, tokens en almacenamiento seguro, repositorio y `AuthController` (GetX).
 - Dependencias móviles: get 4.7.3, dio 5.11.1 y flutter_secure_storage 11.2.0.
+- Tema, rutas con protección de sesión, `InitialBinding` y pantallas de arranque, login, registro e inicio protegido con cierre de sesión.
 
 ### Cambiado
 
@@ -42,8 +43,13 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 
 - `workflows/ci.yml`, que no estaba activo, sustituido por los workflows de `.github/workflows/`.
 
+### Corregido
+
+- `AuthController` ya no falla al reintentar tras un error sin errores por campo (mapa constante adoptado por `RxMap.assignAll`).
+
 ### Seguridad
 
+- HTTP sin cifrar permitido solo en el manifiesto de depuración de Android; el release exige HTTPS. Permiso `INTERNET` declarado en el manifiesto principal.
 - Permisos por objeto en comentarios; autor y ficha asignados en el servidor; el correo de las cuentas no se expone a otras cuentas.
 
 - Límite de intentos (429) en login y registro, configurable con `API_THROTTLE_LOGIN` y `API_THROTTLE_REGISTER`.

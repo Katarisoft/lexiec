@@ -141,6 +141,18 @@ void main() {
     expect(storage.tokens, isNotNull);
   });
 
+  test('se puede reintentar tras un fallo sin errores por campo', () async {
+    // Regresión: un fallo con fieldErrors constante rompía el siguiente intento.
+    storage.tokens = const AuthTokens(access: 'a1', refresh: 'r1');
+    adapter.handler = (options) async => networkError(options);
+    await controller.restoreSession();
+
+    adapter.handler = loginServer();
+    await controller.restoreSession();
+    expect(controller.isAuthenticated, isTrue);
+    expect(controller.fieldErrors, isEmpty);
+  });
+
   test('restoreSession con sesión válida autentica', () async {
     storage.tokens = const AuthTokens(access: 'a1', refresh: 'r1');
     adapter.handler = loginServer();

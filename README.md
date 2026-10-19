@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) y núcleo móvil de red y sesión (E09a, pendiente de revisión; aún sin pantallas de login). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) y pantallas de registro, login y cierre de sesión probadas en un dispositivo físico (E09b, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -160,9 +160,25 @@ No usar la base de producción para pruebas ni ejecutar borrado de volúmenes co
 
 ### 3. Aplicación Flutter
 
-Estado actual: la app solo muestra una pantalla provisional con el aviso académico y todavía no se conecta al backend. `flutter pub get`, `flutter analyze` y `flutter test` están comprobados; `flutter run` en emulador o dispositivo está PENDIENTE de comprobar.
+Estado actual: registro, login, sesión persistente y cierre de sesión contra el backend. La biblioteca se añadirá en E10.
 
-Comandos propuestos para cuando exista la conexión al backend, sujetos a comprobación del nombre real de la variable de configuración:
+Prueba en dispositivo físico por USB, comprobada el 2026-10-19 en un Pixel 9a (sin exponer el backend a la red local):
+
+```bash
+# Terminal 1: backend solo en localhost
+cd backend && .venv/bin/python manage.py runserver 127.0.0.1:8000
+# Terminal 2: túnel USB y app
+adb reverse tcp:8000 tcp:8000
+cd mobile
+flutter build apk --debug --dart-define=API_BASE_URL=http://127.0.0.1:8000
+adb install -r build/app/outputs/flutter-apk/app-debug.apk
+# Al terminar
+adb reverse --remove tcp:8000
+```
+
+El build de depuración permite HTTP sin cifrar solo para este uso local; el de release exige HTTPS.
+
+Ejecución con `flutter run` (variable de configuración real: `API_BASE_URL`):
 
 ```bash
 cd mobile
@@ -170,14 +186,14 @@ flutter pub get
 flutter run --dart-define=API_BASE_URL=<URL_BASE_REAL_DEL_BACKEND>
 ```
 
-`API_BASE_URL` es la raíz del servidor, sin `/api/v1/`. La app añade el prefijo y, si se incluye por error, lo normaliza sin duplicarlo (probado en `test/core/app_config_test.dart`). Valor por defecto: `http://10.0.2.2:8000` (emulador Android). PENDIENTE: qué entornos de red están realmente probados (se verificará en E09b con un dispositivo físico). No permitir HTTP sin cifrar en builds de producción; si el desarrollo local lo necesita, limitarlo a una configuración de depuración explícita.
+`API_BASE_URL` es la raíz del servidor, sin `/api/v1/`. La app añade el prefijo y, si se incluye por error, lo normaliza sin duplicarlo (probado en `test/core/app_config_test.dart`). Valor por defecto: `http://10.0.2.2:8000` (emulador Android). Entornos probados: dispositivo físico por túnel USB (E09b). No permitir HTTP sin cifrar en builds de producción; si el desarrollo local lo necesita, limitarlo a una configuración de depuración explícita.
 
 ### 4. Direcciones por entorno
 
 | Entorno | Dirección comprobada e instrucciones |
 |---|---|
-| Emulador Android | PENDIENTE: URL y configuración local verificadas. |
-| Dispositivo físico | PENDIENTE: dirección accesible desde su red o backend HTTPS del VPS. |
+| Emulador Android | `http://10.0.2.2:8000` (valor por defecto). PENDIENTE: no comprobado; el propietario usa dispositivo físico. |
+| Dispositivo físico | Comprobado por USB con `adb reverse` y `API_BASE_URL=http://127.0.0.1:8000` (ver arriba). Por red local: PENDIENTE. |
 | VPS / APK de evaluación | PENDIENTE: URL HTTPS y disponibilidad durante la evaluación. |
 
 No asumir que `localhost` en el teléfono es el computador del desarrollador. Documentar la conexión realmente utilizada.
@@ -344,13 +360,13 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E09a sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E09b sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
 | `dart format` (comprobación) | Sin cambios |
 | `flutter analyze` | Sin problemas |
-| `flutter test` | 39 pruebas superadas (pantalla provisional; configuración; errores HTTP y de red; renovación única ante 401; repositorio y controlador de autenticación) |
+| `flutter test` | 50 pruebas superadas (configuración; errores HTTP y de red; renovación única ante 401; repositorio y controlador; flujos de pantallas de autenticación; regla de pantallas sin HTTP) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
 | `manage.py test --noinput` (PostgreSQL 16 local) | 103 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |
