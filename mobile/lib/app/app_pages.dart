@@ -7,6 +7,7 @@ import '../modules/auth/login_screen.dart';
 import '../modules/auth/register_screen.dart';
 import '../modules/auth/splash_screen.dart';
 import '../modules/home/home_screen.dart';
+import '../modules/community/comments_controller.dart';
 import '../modules/library/library_controllers.dart';
 import '../modules/library/topic_detail_screen.dart';
 import '../modules/library/topic_list_screen.dart';
@@ -59,9 +60,9 @@ abstract class AppPages {
       page: () => const TopicDetailScreen(),
       middlewares: [AuthGuard()],
       binding: BindingsBuilder(() {
-        Get.put(
-          TopicDetailController(Get.find(), Get.find(), Get.arguments as int),
-        );
+        final topicId = Get.arguments as int;
+        Get.put(TopicDetailController(Get.find(), Get.find(), topicId));
+        Get.put(CommentsController(Get.find(), topicId));
       }),
     ),
   ];

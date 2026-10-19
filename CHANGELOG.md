@@ -36,6 +36,7 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Biblioteca móvil: áreas en el inicio, listado por área o global con búsqueda explícita y «Cargar más», y detalle con fuentes (institución, documento, localizador, fechas, vigencia y limitaciones) y apertura segura del enlace oficial (url_launcher 6.3.3).
 - Componentes reutilizables de carga, vacío y error con reintento.
 - Comando de desarrollo `seed_demo_library` para datos ficticios rotulados (solo con DEBUG).
+- Comentarios en el detalle de ficha: listado con recarga explícita y «Ver más», publicación con progreso y sin duplicados, conservación del texto si falla, edición en diálogo y borrado con confirmación; acciones visibles solo en comentarios propios.
 
 ### Cambiado
 

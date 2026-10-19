@@ -30,6 +30,12 @@ void main() {
       'areas/': (o) async => jsonResponse(200, [areaJson(1), areaJson(2)]),
       'topics/': (o) async => jsonResponse(200, topicPageJson([1, 2])),
       'topics/1/': (o) async => jsonResponse(200, topicDetailJson(1)),
+      'topics/1/comments/': (o) async => jsonResponse(200, {
+        'count': 0,
+        'next': null,
+        'previous': null,
+        'results': <Object>[],
+      }),
     };
     adapter = FakeHttpAdapter((options) async {
       final handler = routes[options.path];

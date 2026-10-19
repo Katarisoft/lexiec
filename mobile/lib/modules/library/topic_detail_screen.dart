@@ -7,6 +7,7 @@ import '../common/view_state.dart';
 import '../common/widgets/academic_notice.dart';
 import '../common/widgets/error_banner.dart';
 import '../common/widgets/state_views.dart';
+import '../community/comments_section.dart';
 import 'library_controllers.dart';
 
 class TopicDetailScreen extends StatelessWidget {
@@ -75,6 +76,8 @@ class _TopicBody extends StatelessWidget {
         else
           for (final source in topic.sources)
             _SourceCard(source: source, controller: controller),
+        const SizedBox(height: 24),
+        const CommentsSection(),
         const SizedBox(height: 24),
         const AcademicNotice(),
       ],
