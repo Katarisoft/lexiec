@@ -1,6 +1,7 @@
-from rest_framework import generics, status
+from rest_framework import exceptions, generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.settings import api_settings as jwt_settings
@@ -14,13 +15,18 @@ from .serializers import (
     UserSerializer,
 )
 
-INVALID_REFRESH_MESSAGE = 'Token de actualización inválido o expirado.'
+class InvalidRefreshToken(exceptions.APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_code = 'invalid_refresh_token'
+    default_detail = 'Token de actualización inválido o expirado.'
 
 
 class RegisterView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     authentication_classes = []
     serializer_class = RegisterSerializer
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'register'
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -31,6 +37,8 @@ class RegisterView(generics.CreateAPIView):
 
 class EmailTokenObtainPairView(TokenObtainPairView):
     serializer_class = EmailTokenObtainPairSerializer
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'login'
 
 
 class MeView(generics.RetrieveAPIView):
@@ -56,11 +64,11 @@ class LogoutView(APIView):
         try:
             token = RefreshToken(serializer.validated_data['refresh'])
         except TokenError:
-            return Response({'detail': INVALID_REFRESH_MESSAGE}, status=status.HTTP_400_BAD_REQUEST)
+            raise InvalidRefreshToken()
 
         # Un usuario no puede invalidar la sesión de otro.
         if str(token.get(jwt_settings.USER_ID_CLAIM)) != str(request.user.pk):
-            return Response({'detail': INVALID_REFRESH_MESSAGE}, status=status.HTTP_400_BAD_REQUEST)
+            raise InvalidRefreshToken()
 
         token.blacklist()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -97,6 +97,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
+    'EXCEPTION_HANDLER': 'config.api_errors.api_exception_handler',
+    # Límites por IP en login y registro (429). Usan la caché por defecto
+    # de Django (memoria local por proceso).
+    'DEFAULT_THROTTLE_RATES': {
+        'login': os.environ.get('API_THROTTLE_LOGIN', '10/min'),
+        'register': os.environ.get('API_THROTTLE_REGISTER', '5/hour'),
+    },
 }
 
 # Access de vida corta: tras el logout solo se invalida el refresh, y un

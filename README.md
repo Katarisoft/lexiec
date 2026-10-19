@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) y autenticación JWT en el backend (E06, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) y API de biblioteca con contrato de errores (E07, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -101,6 +101,7 @@ Variables implementadas (leídas por `backend/config/settings.py`):
 | `DJANGO_ALLOWED_HOSTS` | Servidor | Hosts permitidos, separados por comas. |
 | `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST`, `POSTGRES_PORT` | Solo servidor | Conexión PostgreSQL (por defecto `lexiec`, `localhost`, `5432`). Si la contraseña está vacía, libpq puede tomarla de `~/.pgpass`. |
 | `DJANGO_ENV_FILE` | Servidor | Ruta alternativa del archivo de variables (opcional). |
+| `API_THROTTLE_LOGIN`, `API_THROTTLE_REGISTER` | Servidor | Límites de intentos por IP (por defecto `10/min` y `5/hour`). |
 
 Variables propuestas, todavía no implementadas:
 
@@ -343,7 +344,7 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E06 sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E07 sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
@@ -352,11 +353,13 @@ Resultados locales del 2026-10-19 (cambios de E06 sin commit, sin Docker):
 | `flutter test` | 2 pruebas superadas (pantalla provisional y aviso) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
-| `manage.py test --noinput` (PostgreSQL 16 local) | 57 pruebas superadas (configuración; biblioteca y Admin; registro, login, `me`, renovación y logout JWT con casos negativos y usuarios A/B) |
+| `manage.py test --noinput` (PostgreSQL 16 local) | 81 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT con usuarios A/B; API de biblioteca; contrato de errores 400–500 y límites 429) |
 
 CI en GitHub Actions: `.github/workflows/ci-mobile.yml` y `.github/workflows/ci-backend.yml`, este último con PostgreSQL 16 efímero. PENDIENTE: ejecución remota no confirmada, porque el repositorio aún no tiene remoto.
 
 Si se usa Docker u otro ejecutor, sustituir estos comandos por los equivalentes verificados.
+
+Contrato de errores y payloads del backend: [docs/API.md](docs/API.md).
 
 Documentar en `docs/PRUEBAS.md` los casos de autenticación, autorización A/B, reinicio de favoritos, fuentes/citas, abstención, privacidad, presupuesto y errores.
 
@@ -365,7 +368,7 @@ Documentar en `docs/PRUEBAS.md` los casos de autenticación, autorización A/B, 
 | 400 | Solicitud inválida con explicación útil. |
 | 401 | Renovación controlada o retorno a login. |
 | 403 | Acción no autorizada. |
-| 422 | Validación semántica explícita definida por la API. |
+| 422 | Validación semántica explícita definida por la API (por ahora, `unknown_area`). |
 | 429 | Límite alcanzado. |
 | 5xx | Error temporal del servicio. |
 | Sin red / timeout | Mensaje específico, sin envío de pago duplicado automático. |

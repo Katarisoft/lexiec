@@ -3,6 +3,7 @@
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
@@ -15,8 +16,14 @@ def create_account(email, password=PASSWORD):
     return get_user_model().objects.create_user(username=email, email=email, password=password)
 
 
+def error_details(response):
+    return response.data['error'].get('details', {})
+
+
 class AuthApiTestCase(TestCase):
     def setUp(self):
+        # Los límites de intentos usan la caché; se reinicia en cada prueba.
+        cache.clear()
         self.client = APIClient()
 
     def login(self, email, password=PASSWORD):
@@ -64,7 +71,7 @@ class RegisterTests(AuthApiTestCase):
             self.url, {'email': 'PERSONA.A@ejemplo.invalid', 'password': PASSWORD}, format='json'
         )
         self.assertEqual(response.status_code, 400)
-        self.assertIn('email', response.data)
+        self.assertIn('email', error_details(response))
         self.assertEqual(get_user_model().objects.count(), 1)
 
     def test_rejects_weak_passwords_with_django_validators(self):
@@ -74,7 +81,7 @@ class RegisterTests(AuthApiTestCase):
                     self.url, {'email': 'persona.a@ejemplo.invalid', 'password': weak}, format='json'
                 )
                 self.assertEqual(response.status_code, 400)
-                self.assertIn('password', response.data)
+                self.assertIn('password', error_details(response))
         self.assertFalse(get_user_model().objects.exists())
 
     def test_rejects_invalid_or_missing_fields(self):

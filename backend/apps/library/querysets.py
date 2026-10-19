@@ -15,13 +15,17 @@ class TopicCardQuerySet(models.QuerySet):
 
 
 class SourceFragmentQuerySet(models.QuerySet):
-    def eligible_for_assistant(self):
+    def published(self):
         """Fragmentos aprobados de documentos aprobados y publicados.
 
-        Es el único conjunto que puede alimentar al asistente.
+        Es lo único que la API muestra como fuente de una ficha.
         """
         return self.filter(
             review_status=ReviewStatus.APPROVED,
             document__review_status=ReviewStatus.APPROVED,
             document__publication_status=PublicationStatus.PUBLISHED,
         )
+
+    def eligible_for_assistant(self):
+        """Único conjunto que puede alimentar al asistente (mismo criterio)."""
+        return self.published()

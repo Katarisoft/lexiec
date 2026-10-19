@@ -26,6 +26,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Propuesta de 7 temas de Derecho Constitucional y Participación Ciudadana, más 2 alternativas, con localizadores en la Constitución, la LOGJCC, la LOTAIP 2023, la LOPC y la LOCPCCS, pendiente de aprobación (`docs/FUENTES.md`, sección 9).
 - App `accounts`: registro por correo, login JWT, renovación con rotación, perfil `me` y logout con lista negra del refresh (`/api/v1/auth/`).
 - Django REST Framework 3.18.3 y SimpleJWT 5.5.1 como dependencias del backend.
+- API de biblioteca: `GET /api/v1/areas/`, `GET /api/v1/topics/` (filtro por área, búsqueda y paginación) y `GET /api/v1/topics/{id}/` con fuentes publicadas, solo con sesión.
+- Formato común de errores con códigos estables para 400, 401, 403, 404, 405, 415, 422, 429 y 500, documentado en `docs/API.md`.
 
 ### Cambiado
 
@@ -37,6 +39,9 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - `workflows/ci.yml`, que no estaba activo, sustituido por los workflows de `.github/workflows/`.
 
 ### Seguridad
+
+- Límite de intentos (429) en login y registro, configurable con `API_THROTTLE_LOGIN` y `API_THROTTLE_REGISTER`.
+- Errores 404 y 500 de la API en JSON sin trazas ni detalles internos.
 
 - Identificadas compilaciones de Ediciones Legales con «Prohibida su reproducción parcial o total» y de Lexis en dominios oficiales; su texto no se copiará a la base de datos sin decisión de Revisor Jurídico.
 
