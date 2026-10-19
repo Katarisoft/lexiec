@@ -39,7 +39,7 @@ En E05, cada aprobación se registrará en el sistema con la cuenta de staff que
 
 ## C. Temas por área
 
-Detalle de cada tema en [docs/FUENTES.md](FUENTES.md): sección 7 (Familia) y sección 8 (Laboral). Constitucional se añadirá en E04d.
+Detalle de cada tema en [docs/FUENTES.md](FUENTES.md): sección 7 (Familia), sección 8 (Laboral) y sección 9 (Constitucional y Participación Ciudadana).
 
 Decisión: **Aprobado**, **Rechazado**, **Aprobado con cambios** (indicar cuáles) o **Requiere otra fuente**.
 
@@ -70,6 +70,22 @@ Decisión: **Aprobado**, **Rechazado**, **Aprobado con cambios** (indicar cuále
 | L7 | Participación en utilidades | CT art. 97 | | | | | Revisor Jurídico | |
 | L-alt1 | Licencia por maternidad y paternidad (alternativa) | CT art. 152; CRE art. 332 | | | | | Revisor Jurídico | |
 | L-alt2 | Afiliación al IESS (alternativa) | CT art. 42 num. 31; CRE art. 34 | | | | | Revisor Jurídico | |
+
+### C.3 Derecho Constitucional y Participación Ciudadana
+
+| ID | Tema | Localizadores propuestos | ¿Localizadores correctos y suficientes? | Fuente de texto autorizada para E05 | Decisión | Observaciones | Revisor | Fecha |
+|---|---|---|---|---|---|---|---|---|
+| C1 | Acción de protección | CRE art. 88; LOGJCC arts. 39-42 | | | | | Revisor Jurídico | |
+| C2 | Hábeas corpus | CRE art. 89; LOGJCC art. 43 | | | | | Revisor Jurídico | |
+| C3 | Hábeas data | CRE art. 92; LOGJCC arts. 49-51 | | | | | Revisor Jurídico | |
+| C4 | Acceso a la información pública | CRE arts. 18, 91; LOTAIP arts. 7, 32, 34, 36; LOGJCC arts. 47-48 | | | | | Revisor Jurídico | |
+| C5 | Iniciativa popular normativa y consulta popular | CRE arts. 103, 104; LOPC arts. 6, 19 | | | | | Revisor Jurídico | |
+| C6 | Silla vacía | CRE art. 101; LOPC art. 77 | | | | | Revisor Jurídico | |
+| C7 | Rendición de cuentas y veedurías | CRE art. 208; LOPC arts. 84, 88-90; LOCPCCS arts. 9, 10, 63 | | | | | Revisor Jurídico | |
+| C-alt1 | Derecho de petición (alternativa) | CRE art. 66 num. 23 | | | | | Revisor Jurídico | |
+| C-alt2 | Derechos de participación (alternativa) | CRE arts. 61, 95, 100 | | | | | Revisor Jurídico | |
+
+Pregunta adicional para Revisor Jurídico: ¿se confirma que, tras la sentencia 018-18-SIN-CC, el art. 104 y los demás artículos afectados por la Enmienda de 2015 rigen con su texto original?
 
 ## D. Muestra de respuestas del asistente
 

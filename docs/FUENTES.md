@@ -326,3 +326,78 @@ Alternativas:
 - Hay dos copias del Código del Trabajo sin aviso restrictivo. Siguen pendientes de P-02 (condiciones de reproducción) y del cotejo de la reforma de 2026-04-09, cuya edición del R.O. no se ha identificado.
 - No hay bloqueos equivalentes a B-01, pero ningún tema está aprobado.
 - Los artículos constitucionales (33, 34, 326, 328 y 332) tienen texto tipo A en CRE-A (págs. 13, 58 y 59).
+
+## 9. Temas propuestos — Derecho Constitucional y Participación Ciudadana (E04d)
+
+Fecha de elaboración: 2026-10-19. **Todos los temas están PENDIENTES DE APROBACIÓN** por Revisor Jurídico. No se transcribe el texto de los artículos.
+
+Copias de trabajo y páginas del PDF:
+- **CRE-A:** D01 tipo A, R.O. 449 original (texto a dos columnas).
+- **CRE-B:** D01 tipo B, Ediciones Legales, reproducción prohibida; solo se usa para leer notas de reforma.
+- **LOGJCC:** D06, PDF de GOB.EC, «Última Reforma: … R.O. 134, 3-II-2020»; sin marca de compilador.
+- **LOTAIP:** D07, facsímil del R.O. 245-2S, 2023 (tipo A).
+- **LOPC:** D05, PDF de GOB.EC / Lexis, «Ultima modificación: 11-may.-2011» (**bloqueo B-02**).
+- **LOCPCCS:** D08, copia de SERCOP, «ÚLTIMA REFORMA: 2024-11-11»; sin marca de compilador.
+
+Nota sobre las reformas constitucionales: CRE-B no anota reformas en los arts. 18, 61, 66, 88, 89, 91, 92, 95, 100, 101, 103 y 208. En el art. 104 anota la Enmienda del R.O. 653-S (21-XII-2015) y añade que la sentencia 018-18-SIN-CC (R.O. E.C. 79, 30-IV-2019) la declaró inconstitucional por la forma, «por lo que el presente artículo retorna a su texto original». Si Revisor Jurídico lo confirma, el texto de CRE-A sería aplicable a estos artículos. Es una nota del compilador, no verificada.
+
+### Resumen
+
+| ID | Pregunta ciudadana | Documento y localizador | Páginas | Estado |
+|---|---|---|---|---|
+| C1 | ¿Qué es la acción de protección y cuándo procede? | D01 art. 88; D06 arts. 39, 40, 41 y 42 | CRE-A 25; LOGJCC 14-15 | Pendiente de aprobación |
+| C2 | ¿Qué es el hábeas corpus? | D01 art. 89; D06 art. 43 | CRE-A 25; LOGJCC 15 | Pendiente de aprobación |
+| C3 | ¿Cómo conocer o corregir mis datos personales en registros (hábeas data)? | D01 art. 92; D06 arts. 49, 50 y 51 | CRE-A 26; LOGJCC 18-19 | Pendiente de aprobación |
+| C4 | ¿Cómo pedir información pública y qué hacer si me la niegan? | D01 arts. 18 y 91; D07 arts. 7, 32, 34 y 36; D06 arts. 47 y 48 | CRE-A 12, 26; LOTAIP 10, 25-26; LOGJCC 17-18 | Pendiente de aprobación |
+| C5 | ¿Cómo proponer una ley u ordenanza o pedir una consulta popular? | D01 arts. 103 y 104; D05 arts. 6 y 19 | CRE-A 27; LOPC 6, 9 | Pendiente de aprobación (LOPC con B-02) |
+| C6 | ¿Qué es la silla vacía en los gobiernos locales? | D01 art. 101; D05 art. 77 | CRE-A 27; LOPC 24 | Pendiente de aprobación (LOPC con B-02) |
+| C7 | ¿Cómo exigir rendición de cuentas y formar una veeduría ciudadana? | D01 art. 208; D05 arts. 84, 88, 89 y 90; D08 arts. 9, 10 y 63 | CRE-A 42; LOPC 26-27; LOCPCCS 5, 22 | Pendiente de aprobación (LOPC con B-02) |
+
+Alternativas:
+- **C-alt1:** derecho de petición (D01 art. 66, num. 23; CRE-A 19). Hay que confirmar el numeral exacto en el texto oficial.
+- **C-alt2:** derechos de participación y su organización en todos los niveles de gobierno (D01 arts. 61, 95 y 100; CRE-A 18, 26 y 27).
+
+### Detalle por tema
+
+**C1 — Acción de protección**
+- Localizadores: D01 art. 88; D06 art. 39 («Objeto»), art. 40 («Requisitos»), art. 41 («Procedencia y legitimación pasiva») y art. 42 («Improcedencia de la acción»).
+- Limitación: la jurisprudencia de la Corte Constitucional matiza estas reglas y no está inventariada. La ficha no orientará casos concretos.
+
+**C2 — Hábeas corpus**
+- Localizadores: D01 art. 89; D06 art. 43 («Objeto»).
+- Limitación: los artículos procedimentales siguientes de la LOGJCC no se localizaron en esta entrega. Revisor Jurídico puede ampliar los localizadores.
+
+**C3 — Hábeas data**
+- Localizadores: D01 art. 92; D06 art. 49 («Objeto»), art. 50 («Ámbito de protección») y art. 51 («Legitimación activa»).
+- Limitación: la normativa de protección de datos personales no está inventariada.
+
+**C4 — Acceso a la información pública**
+- Localizadores:
+  - D01 art. 18 (derecho a la información) y art. 91 (acción de acceso a la información pública);
+  - D07 art. 7 («Derecho de acceso a la información pública»), art. 32 («Solicitud y Contenido»), art. 34 («Plazo») y art. 36 («Denegación de la información»);
+  - D06 art. 47 («Objeto y ámbito de protección») y art. 48 («Normas especiales»).
+- Ventaja: D07 es una edición oficial (tipo A).
+- Limitación: el reglamento de 2024 no está verificado (ver D07).
+
+**C5 — Iniciativa popular normativa y consulta popular**
+- Localizadores: D01 arts. 103 y 104 (sobre el art. 104, ver la nota de reformas); D05 art. 6 («La iniciativa popular normativa») y art. 19 («Consulta popular convocada por la Presidenta o Presidente de la República»).
+- **Riesgo:** D05 solo está disponible en el texto de 2011 (B-02). Requisitos como los porcentajes de firmas deben tomarse de la Constitución o de un texto cotejado.
+
+**C6 — Silla vacía**
+- Localizadores: D01 art. 101; D05 art. 77 («De la silla vacía en las sesiones de los gobiernos autónomos descentralizados»).
+- **Riesgo:** B-02. La reforma de 2024 a la LOPC podría afectar a este mecanismo; no publicar el detalle de la ley sin cotejo.
+
+**C7 — Rendición de cuentas y veedurías ciudadanas**
+- Localizadores:
+  - D01 art. 208;
+  - D05 art. 84 («Veedurías ciudadanas»), art. 88 («Derecho ciudadano a la rendición de cuentas»), art. 89 («Definición») y art. 90 («Sujetos obligados»);
+  - D08 art. 9 («Rendición de cuentas»), art. 10 («Contenido de la rendición de cuentas») y art. 63 («Veedurías»).
+- **Riesgo:** B-02 en D05. D08 declara una reforma de 2024 no cotejada. Se puede priorizar D01 y D08.
+
+### Conclusión para Constitucional y Participación
+
+- Es el área con más texto reproducible en principio (sujeto a P-02):
+  - artículos constitucionales en edición tipo A;
+  - LOTAIP en edición tipo A;
+  - LOGJCC y LOCPCCS sin aviso restrictivo.
+- C5, C6 y C7 dependen en parte de la LOPC (B-02). Si no se resuelve, sus fichas pueden apoyarse en la Constitución y en D08, con la limitación explícita.
