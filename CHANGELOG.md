@@ -24,6 +24,8 @@ Cambios relevantes de LexiEC. El formato sigue la idea de [Keep a Changelog](htt
 - Propuesta de 7 temas de Derecho de Familia, más 2 alternativas, con localizadores y páginas de las copias de trabajo, pendiente de aprobación (`docs/FUENTES.md`, sección 7).
 - Propuesta de 7 temas de Derecho Laboral, más 2 alternativas, con localizadores y páginas en dos copias del Código del Trabajo, pendiente de aprobación (`docs/FUENTES.md`, sección 8).
 - Propuesta de 7 temas de Derecho Constitucional y Participación Ciudadana, más 2 alternativas, con localizadores en la Constitución, la LOGJCC, la LOTAIP 2023, la LOPC y la LOCPCCS, pendiente de aprobación (`docs/FUENTES.md`, sección 9).
+- App `accounts`: registro por correo, login JWT, renovación con rotación, perfil `me` y logout con lista negra del refresh (`/api/v1/auth/`).
+- Django REST Framework 3.18.3 y SimpleJWT 5.5.1 como dependencias del backend.
 
 ### Cambiado
 

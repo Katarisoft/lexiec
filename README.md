@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) y esquema documental con Django Admin (E03, aceptada). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) y autenticación JWT en el backend (E06, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -60,7 +60,7 @@ Versiones del entorno de desarrollo registradas el 2026-10-16 (ver [docs/ESTADO.
 | Flutter | 3.44.0, canal stable |
 | Dart | 3.12.0 |
 | Python | 3.12.3, con entorno virtual en `backend/.venv` |
-| Django / Django REST Framework | Django 5.2.18 (LTS) / DRF: PENDIENTE, aún no incorporado |
+| Django / Django REST Framework | Django 5.2.18 (LTS) / DRF 3.18.3; SimpleJWT 5.5.1 |
 | PostgreSQL | 16.15 en local; `postgres:16` en CI |
 | Docker / Docker Compose | 29.1.3 / 2.40.3 instalados; PENDIENTE: el proyecto aún no los usa |
 | Entorno Android y emulador | Android SDK 36.1.0 y Gradle 9.1.0 (wrapper); PENDIENTE: ejecución en emulador no comprobada |
@@ -76,7 +76,7 @@ Estructura actual (2026-10-16):
 
 ```text
 mobile/                 aplicación Flutter (Android, com.katarisoft.lexiec)
-backend/                proyecto Django (config/), apps/library y tests/
+backend/                proyecto Django (config/), apps/accounts, apps/library y tests/
 .github/workflows/      CI: ci-mobile.yml y ci-backend.yml
 workflows/              release-apk.yml, inactivo hasta la entrega de Release
 docs/                   alcance, estado y notas de cambios por entrega
@@ -86,7 +86,7 @@ CHANGELOG.md            cambios por versión
 GUIA_MAESTRA.md         guía de desarrollo por entregas
 ```
 
-PENDIENTE: `infra/` (contenedores y despliegue), las apps `accounts`, `community` y `assistant`, y la publicación del APK en `.github/workflows/`.
+PENDIENTE: `infra/` (contenedores y despliegue), las apps `community` y `assistant`, y la publicación del APK en `.github/workflows/`.
 
 ## Configuración
 
@@ -343,7 +343,7 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-16 (cambios de E03 sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E06 sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
@@ -352,7 +352,7 @@ Resultados locales del 2026-10-16 (cambios de E03 sin commit, sin Docker):
 | `flutter test` | 2 pruebas superadas (pantalla provisional y aviso) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
-| `manage.py test --noinput` (PostgreSQL 16 local) | 36 pruebas superadas (configuración; estados y restricciones de la biblioteca; exclusión de borradores; altas desde Django Admin) |
+| `manage.py test --noinput` (PostgreSQL 16 local) | 57 pruebas superadas (configuración; biblioteca y Admin; registro, login, `me`, renovación y logout JWT con casos negativos y usuarios A/B) |
 
 CI en GitHub Actions: `.github/workflows/ci-mobile.yml` y `.github/workflows/ci-backend.yml`, este último con PostgreSQL 16 efímero. PENDIENTE: ejecución remota no confirmada, porque el repositorio aún no tiene remoto.
 
