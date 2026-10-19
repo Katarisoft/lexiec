@@ -8,6 +8,8 @@ import '../common/widgets/academic_notice.dart';
 import '../common/widgets/error_banner.dart';
 import '../common/widgets/state_views.dart';
 import '../community/comments_section.dart';
+import '../local_library/local_library_controller.dart';
+import '../local_library/topic_note_section.dart';
 import 'library_controllers.dart';
 
 class TopicDetailScreen extends StatelessWidget {
@@ -17,7 +19,25 @@ class TopicDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TopicDetailController controller = Get.find();
     return Scaffold(
-      appBar: AppBar(title: const Text('Ficha')),
+      appBar: AppBar(
+        title: const Text('Ficha'),
+        actions: [
+          Obx(() {
+            final LocalLibraryController local = Get.find();
+            final topic = controller.topic.value;
+            if (topic == null || !local.isReady.value) {
+              return const SizedBox.shrink();
+            }
+            final saved = local.isFavorite(topic.id);
+            return IconButton(
+              key: const Key('favorite-toggle'),
+              tooltip: saved ? 'Quitar de favoritos' : 'Guardar en favoritos',
+              icon: Icon(saved ? Icons.star : Icons.star_border),
+              onPressed: () => local.toggleFavorite(topic),
+            );
+          }),
+        ],
+      ),
       body: SafeArea(
         child: Obx(() {
           switch (controller.state.value) {
@@ -76,6 +96,8 @@ class _TopicBody extends StatelessWidget {
         else
           for (final source in topic.sources)
             _SourceCard(source: source, controller: controller),
+        const SizedBox(height: 24),
+        TopicNoteSection(topicId: topic.id),
         const SizedBox(height: 24),
         const CommentsSection(),
         const SizedBox(height: 24),

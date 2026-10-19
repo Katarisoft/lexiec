@@ -10,6 +10,7 @@ import 'package:lexiec/main.dart';
 import 'package:lexiec/modules/auth/auth_controller.dart';
 
 import 'support/fake_http_adapter.dart';
+import 'support/in_memory_local_store.dart';
 import 'support/in_memory_token_storage.dart';
 import 'support/library_fixtures.dart';
 import 'widget_test.dart' show settle;
@@ -55,6 +56,7 @@ void main() {
     await tester.pumpWidget(
       LexiEcApp(
         binding: InitialBinding(
+          localStore: InMemoryLocalLibraryStore(),
           tokenStorage: storage,
           apiClient: client,
           linkOpener: opener,

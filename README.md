@@ -11,7 +11,7 @@ El proyecto organiza contenido de Derecho de Familia, Derecho Laboral y Derecho 
 Este README está adaptado al alcance acordado, pero no certifica que la implementación esté terminada. Las casillas permanecen pendientes hasta contar con evidencia real. Antes de la entrega deben reemplazarse los campos `PENDIENTE` y comprobarse los comandos contra el repositorio.
 
 - Versión: PENDIENTE.
-- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) pantallas de autenticación (E09b, aceptada) biblioteca móvil con fuentes (E10, aceptada; probada con datos DEMO ficticios porque la colección real depende de la revisión jurídica) y comentarios móviles con prueba A/B en dispositivo (E11, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
+- Estado de implementación (2026-10-16): base del monorepositorio (E01, aceptada), CI mínima con pruebas iniciales (E02, aceptada) esquema documental con Django Admin (E03, aceptada), inventario y propuesta de 21 temas pendientes de revisión jurídica (E04) autenticación JWT en el backend (E06, aceptada) API de biblioteca con contrato de errores (E07, aceptada) comentarios con permisos por objeto (E08, aceptada) núcleo móvil de red y sesión (E09a, aceptada) pantallas de autenticación (E09b, aceptada) biblioteca móvil con fuentes (E10, aceptada; probada con datos DEMO ficticios porque la colección real depende de la revisión jurídica) comentarios móviles con prueba A/B en dispositivo (E11, aceptada) y favoritos y notas locales por cuenta (E12, pendiente de revisión). Ninguna funcionalidad de la lista siguiente está completa todavía. Detalle por entrega en [docs/ESTADO.md](docs/ESTADO.md).
 - Repositorio privado: PENDIENTE; el repositorio local aún no tiene remoto configurado, por lo que tampoco se ha comprobado el acceso del docente.
 - Backend público HTTPS: PENDIENTE de configurar/documentar.
 - Última revisión jurídica de la colección: PENDIENTE.
@@ -324,7 +324,7 @@ Stack acordado; confirmar paquetes y versiones en los archivos de dependencias:
 | Flutter / Dart | Aplicación Android. |
 | GetX | Estado, rutas y dependencias según la implementación. |
 | Dio | Acceso HTTP desde servicios. |
-| Hive | Favoritos y notas locales por cuenta. |
+| Hive (hive_ce 2.22.0) | Favoritos y notas locales por cuenta, sin cifrar y sin tokens. |
 | flutter_secure_storage | Almacenamiento de tokens. |
 | Django / DRF | API, validaciones y permisos. |
 | PostgreSQL | Datos persistentes y recuperación documental. |
@@ -340,8 +340,8 @@ Políticas previstas; verificar su implementación antes de marcarlas como cumpl
 - [ ] Clave de IA solo en servidor.
 - [ ] Historial filtrado por propietario y permisos por objeto probados.
 - [ ] Autor de comentarios asignado en servidor.
-- [ ] Favoritos/notas separados por cuenta; logout limpia memoria y cierra cajas.
-- [ ] Notas locales no se presentan como almacenamiento seguro de datos sensibles.
+- [x] Favoritos/notas separados por cuenta; logout limpia memoria y cierra cajas (E12: pruebas con Hive real y verificación en dispositivo con dos cuentas).
+- [x] Notas locales no se presentan como almacenamiento seguro de datos sensibles (aviso visible en la nota; Hive sin cifrar y sin tokens).
 - [ ] Preguntas y respuestas privadas no se registran en logs operativos.
 - [ ] Eliminación de consultas y política de retención de copias documentadas.
 - [ ] PostgreSQL sin exposición pública y backend con HTTPS.
@@ -368,13 +368,13 @@ cd backend
 .venv/bin/python manage.py test --noinput
 ```
 
-Resultados locales del 2026-10-19 (cambios de E11 sin commit, sin Docker):
+Resultados locales del 2026-10-19 (cambios de E12 sin commit, sin Docker):
 
 | Comando | Resultado |
 |---|---|
 | `dart format` (comprobación) | Sin cambios |
 | `flutter analyze` | Sin problemas |
-| `flutter test` | 87 pruebas superadas (comentarios: publicar, editar, borrar, A/B y conservación de texto; configuración; errores HTTP y de red; renovación única ante 401; autenticación; biblioteca: estados carga/vacío/error, búsqueda, paginación, detalle con fuentes y enlaces; regla de pantallas sin HTTP) |
+| `flutter test` | 99 pruebas superadas (favoritos y notas: Hive real con reinicio y aislamiento por cuenta, cambio de cuenta en pantallas; comentarios: publicar, editar, borrar, A/B y conservación de texto; configuración; errores HTTP y de red; renovación única ante 401; autenticación; biblioteca: estados carga/vacío/error, búsqueda, paginación, detalle con fuentes y enlaces; regla de pantallas sin HTTP) |
 | `manage.py check` | Sin problemas |
 | `makemigrations --check --dry-run` | Sin cambios pendientes |
 | `manage.py test --noinput` (PostgreSQL 16 local) | 107 pruebas superadas (configuración; biblioteca y Admin; autenticación JWT y perfil; API de biblioteca; contrato de errores 400–500 y límites 429; comentarios con permisos A/B, IDOR y moderación) |

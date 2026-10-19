@@ -11,6 +11,8 @@ abstract class AppRoutes {
   /// Argumento obligatorio: id (`int`) de la ficha.
   static const topic = '/topic';
 
+  static const favorites = '/favorites';
+
   /// Rutas que exigen sesión.
-  static const protected = {home, topics, topic};
+  static const protected = {home, topics, topic, favorites};
 }

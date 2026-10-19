@@ -22,6 +22,12 @@ class HomeScreen extends StatelessWidget {
         title: const Text('LexiEC'),
         actions: [
           IconButton(
+            key: const Key('favorites'),
+            tooltip: 'Mis favoritos',
+            icon: const Icon(Icons.star_outline),
+            onPressed: () => Get.toNamed<void>(AppRoutes.favorites),
+          ),
+          IconButton(
             key: const Key('search-all'),
             tooltip: 'Buscar en todas las fichas',
             icon: const Icon(Icons.search),

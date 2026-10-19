@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import 'app/app_pages.dart';
 import 'app/app_routes.dart';
 import 'app/app_theme.dart';
 import 'app/initial_binding.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Favoritos y notas locales (no se guardan tokens en Hive).
+  await Hive.initFlutter('lexiec');
   runApp(LexiEcApp(binding: InitialBinding()));
 }
 

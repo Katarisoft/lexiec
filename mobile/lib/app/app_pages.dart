@@ -11,6 +11,7 @@ import '../modules/community/comments_controller.dart';
 import '../modules/library/library_controllers.dart';
 import '../modules/library/topic_detail_screen.dart';
 import '../modules/library/topic_list_screen.dart';
+import '../modules/local_library/favorites_screen.dart';
 import 'app_routes.dart';
 
 /// Redirige al login si se intenta abrir una ruta protegida sin sesión.
@@ -64,6 +65,11 @@ abstract class AppPages {
         Get.put(TopicDetailController(Get.find(), Get.find(), topicId));
         Get.put(CommentsController(Get.find(), topicId));
       }),
+    ),
+    GetPage(
+      name: AppRoutes.favorites,
+      page: () => const FavoritesScreen(),
+      middlewares: [AuthGuard()],
     ),
   ];
 }
